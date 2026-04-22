@@ -1,0 +1,331 @@
+# ============================================================
+# SE Constitution: Manifest Schema Registry
+# Defines the expected structure and validation rules for
+# SE_MANIFEST.toml conforming to se-manifest-2.
+# ============================================================
+
+[meta]
+schema = "se-constitution-manifest-schema-1"
+version = "0.1.0"
+status = "draft"
+title = "SE Manifest Schema Registry"
+manifest_schema_id = "se-manifest-2"
+purpose = "Defines required sections, fields, and validation rules for SE_MANIFEST.toml in the Structural Explainability ecosystem."
+
+[manifest]
+filename = "SE_MANIFEST.toml"
+human_legible = true
+machine_readable = true
+reviewable = true
+
+[manifest.identity]
+schema_field = "schema"
+schema_required = true
+schema_allowed = ["se-manifest-2"]
+
+schema_url_field = "schema_url"
+schema_url_required = true
+
+# ------------------------------------------------------------
+# Section registry
+# ------------------------------------------------------------
+
+[section.meta]
+required = true
+description = "Non-normative contextual information about the manifest and framework."
+allowed_fields = [
+  "framework",
+  "framework_url",
+  "framework_note",
+  "description",
+  "purpose"
+]
+
+[section.repo]
+required = true
+description = "Stable repository identity and declared class."
+allowed_fields = [
+  "name",
+  "org",
+  "class",
+  "kind",
+  "status",
+  "since",
+  "summary"
+]
+
+[section.layer]
+required = true
+description = "Declared epistemic position."
+allowed_fields = [
+  "space",
+  "role"
+]
+
+[section.depends]
+required = true
+description = "Declared upstream dependencies."
+allowed_fields = [
+  "required",
+  "optional"
+]
+
+[section.provides]
+required = true
+description = "Artifacts intentionally provided and maintained."
+allowed_fields = [
+  "artifacts"
+]
+
+[section.scope]
+required = true
+description = "Explicit semantic boundary."
+allowed_fields = [
+  "includes",
+  "excludes"
+]
+
+[section.compatibility]
+required = false
+description = "Declared compatibility with constitutional and ecosystem components."
+allowed_fields = [
+  "constitution",
+  "kernel",
+  "mapspec",
+  "schema",
+  "profile",
+  "rules"
+]
+
+[section.citation]
+required = true
+description = "Citation pointer metadata."
+allowed_fields = [
+  "cff",
+  "preferred",
+  "bib_hint"
+]
+
+[section.traceability]
+required = true
+description = "Identifier resolution and traceability strategy."
+allowed_fields = [
+  "identifier_map"
+]
+
+# ------------------------------------------------------------
+# Field definitions
+# ------------------------------------------------------------
+
+[field.repo.name]
+type = "string"
+required = true
+constraints = ["nonempty", "ascii-repo-name", "matches-constitution-naming-law"]
+
+[field.repo.org]
+type = "string"
+required = true
+constraints = ["nonempty"]
+
+[field.repo.class]
+type = "string"
+required = true
+constraints = ["known-repo-class"]
+
+[field.repo.kind]
+type = "string"
+required = true
+constraints = ["nonempty"]
+
+[field.repo.status]
+type = "string"
+required = true
+constraints = ["known-status"]
+
+[field.repo.since]
+type = "string"
+required = true
+constraints = ["year-or-date-string"]
+
+[field.repo.summary]
+type = "string"
+required = true
+constraints = ["nonempty"]
+
+[field.layer.space]
+type = "string"
+required = true
+constraints = ["nonempty"]
+
+[field.layer.role]
+type = "string"
+required = true
+constraints = ["nonempty"]
+
+[field.depends.required]
+type = "list[string]"
+required = true
+
+[field.depends.optional]
+type = "list[string]"
+required = true
+
+[field.provides.artifacts]
+type = "list[string]"
+required = true
+
+[field.scope.includes]
+type = "list[string]"
+required = true
+
+[field.scope.excludes]
+type = "list[string]"
+required = true
+
+[field.compatibility.constitution]
+type = "string"
+required = false
+
+[field.compatibility.kernel]
+type = "string"
+required = false
+
+[field.compatibility.mapspec]
+type = "string"
+required = false
+
+[field.compatibility.schema]
+type = "list[string]"
+required = false
+
+[field.compatibility.profile]
+type = "list[string]"
+required = false
+
+[field.compatibility.rules]
+type = "list[string]"
+required = false
+
+[field.citation.cff]
+type = "string"
+required = true
+
+[field.citation.preferred]
+type = "string"
+required = true
+
+[field.citation.bib_hint]
+type = "string"
+required = false
+
+[field.traceability.identifier_map]
+type = "string"
+required = true
+
+# ------------------------------------------------------------
+# Class-specific requirements
+# ------------------------------------------------------------
+
+[class.constitution]
+required_repo_name_patterns = ["se-constitution"]
+required_layer_roles = ["constitution"]
+forbidden_sections = []
+required_compatibility_fields = []
+
+[class.admin]
+required_repo_name_patterns = ["se-admin"]
+required_layer_roles = ["administration"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution"]
+
+[class.policy]
+required_repo_name_patterns = ["se-policy"]
+required_layer_roles = ["policy"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution"]
+
+[class.kernel]
+required_repo_name_patterns = ["se-kernel"]
+required_layer_roles = ["kernel"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution"]
+
+[class.schema]
+required_repo_name_patterns = ["se-schema-{focus}"]
+required_layer_roles = ["schema"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution", "kernel"]
+
+[class.mapspec]
+required_repo_name_patterns = ["se-mapspec"]
+required_layer_roles = ["mapping-specification"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution", "kernel"]
+
+[class.mapping]
+required_repo_name_patterns = ["se-mapping-{standard}"]
+required_layer_roles = ["mapping"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution", "kernel", "mapspec"]
+
+[class.adapter]
+required_repo_name_patterns = ["se-adapter-{standard}"]
+required_layer_roles = ["adapter"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution", "kernel"]
+
+[class.profile]
+required_repo_name_patterns = ["se-profile-{jurisdiction}", "se-profile-{jurisdiction}-{focus}"]
+required_layer_roles = ["profile"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution", "kernel", "schema"]
+
+[class.rules]
+required_repo_name_patterns = ["se-rules-{jurisdiction}", "se-rules-{jurisdiction}-{focus}"]
+required_layer_roles = ["rules"]
+forbidden_sections = []
+required_compatibility_fields = ["constitution", "kernel", "schema"]
+
+[class.pilot]
+required_repo_name_patterns = ["se-pilot-{focus}"]
+required_layer_roles = ["pilot"]
+forbidden_sections = []
+required_compatibility_fields = []
+
+[class.docs]
+required_repo_name_patterns = ["se-docs", "se-docs-{focus}"]
+required_layer_roles = ["documentation"]
+forbidden_sections = []
+required_compatibility_fields = []
+
+# ------------------------------------------------------------
+# Validation rules
+# ------------------------------------------------------------
+
+[validation]
+require_known_sections_only = true
+require_known_fields_only = true
+require_single_repo_class = true
+require_repo_name_to_match_declared_class = true
+require_declared_class_to_exist_in_class_registry = true
+require_dependencies_to_follow_dependency_law = true
+require_manifest_filename_exact = true
+
+[validation.defaults]
+empty_optional_lists_allowed = true
+empty_required_lists_allowed = true
+
+# ------------------------------------------------------------
+# Notes
+# ------------------------------------------------------------
+
+[notes]
+manifest_role = "Declares repository intent, scope, role, and compatibility under constitutional law."
+non_goals = [
+  "build configuration",
+  "deployment configuration",
+  "runtime secrets",
+  "replace README documentation",
+  "replace CITATION.cff",
+  "duplicate constitutional law tables"
+]

@@ -1,0 +1,602 @@
+# ============================================================
+# SE Constitution: Repo Requirements Registry
+# Defines required artifacts, required docs, and baseline
+# obligations by repository class.
+# ============================================================
+
+[meta]
+schema = "se-constitution-repo-requirements-1"
+version = "0.1.0"
+status = "draft"
+title = "SE Repo Requirements Registry"
+purpose = "Defines required repository artifacts and obligations by SE repository class."
+
+[global]
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml"
+]
+
+recommended_root_files = [
+  "LICENSE",
+  "CITATION.cff"
+]
+
+required_root_directories = [
+  "docs"
+]
+
+cross_platform_required = true
+utf8_required = true
+ascii_repo_name_required = true
+
+# ------------------------------------------------------------
+# Common documentation requirements
+# ------------------------------------------------------------
+
+[common.docs]
+required = [
+  "docs/law",
+  "docs/class",
+  "docs/manifest"
+]
+
+recommended = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+notes = "These are ecosystem-oriented defaults. Class-specific requirements below may add to or narrow them."
+
+[common.manifest]
+required = true
+filename = "SE_MANIFEST.toml"
+schema = "se-manifest-2"
+
+[common.automation]
+require_ci = true
+require_manifest_validation = true
+
+# ------------------------------------------------------------
+# Constitution
+# ------------------------------------------------------------
+
+[repo.constitution]
+summary = "Architectural law and governing definitions for the SE ecosystem."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data"
+]
+
+required_docs = [
+  "docs/law",
+  "docs/class",
+  "docs/manifest"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_data = [
+  "data/class/class-registry.toml",
+  "data/naming/naming-patterns.toml",
+  "data/dependency/dependency-rules.toml",
+  "data/manifest/manifest-schema.toml",
+  "data/repo/repo-requirements.toml"
+]
+
+required_capabilities = [
+  "defines constitutional law",
+  "defines repo classes",
+  "defines naming law",
+  "defines dependency law",
+  "defines manifest requirements",
+  "defines repo requirements"
+]
+
+forbidden_capabilities = [
+  "operational orchestration",
+  "deployment automation as primary purpose",
+  "private implementation code as primary purpose"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Admin
+# ------------------------------------------------------------
+
+[repo.admin]
+summary = "Automation, orchestration, and maintenance tooling for the SE ecosystem."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "tools",
+  ".github"
+]
+
+required_docs = [
+  "docs/repo",
+  "docs/manifest"
+]
+
+recommended_docs = [
+  "docs/examples"
+]
+
+required_capabilities = [
+  "validates manifests",
+  "validates naming compliance",
+  "validates dependency compliance",
+  "provides reusable workflows",
+  "provides scaffold tooling"
+]
+
+forbidden_capabilities = [
+  "redefining constitutional law",
+  "redefining repo classes"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = false
+
+# ------------------------------------------------------------
+# Policy
+# ------------------------------------------------------------
+
+[repo.policy]
+summary = "Operational governance, procedures, and stewardship rules."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs"
+]
+
+required_docs = [
+  "docs/law",
+  "docs/repo"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "defines operating procedures",
+  "defines stewardship rules",
+  "defines review and release expectations"
+]
+
+forbidden_capabilities = [
+  "redefining kernel semantics",
+  "redefining constitutional law as primary purpose"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = false
+
+# ------------------------------------------------------------
+# Kernel
+# ------------------------------------------------------------
+
+[repo.kernel]
+summary = "Foundational structural primitives, invariants, and enduring constraints."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs"
+]
+
+required_docs = [
+  "docs/law",
+  "docs/class"
+]
+
+recommended_docs = [
+  "docs/glossary",
+  "docs/examples"
+]
+
+required_capabilities = [
+  "defines foundational primitives",
+  "defines invariants",
+  "defines enduring structural constraints"
+]
+
+forbidden_capabilities = [
+  "domain-specific schema as primary purpose",
+  "jurisdiction-specific rules",
+  "implementation adapters",
+  "pilot logic"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = false
+
+# ------------------------------------------------------------
+# Schema
+# ------------------------------------------------------------
+
+[repo.schema]
+summary = "Canonical schema for a defined semantic focus."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data"
+]
+
+required_docs = [
+  "docs/class",
+  "docs/manifest"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "defines canonical schema",
+  "declares semantic focus",
+  "declares compatibility with kernel"
+]
+
+forbidden_capabilities = [
+  "redefining kernel invariants",
+  "embedding jurisdiction-specific rules as primary purpose",
+  "adapter implementation as primary purpose"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Mapspec
+# ------------------------------------------------------------
+
+[repo.mapspec]
+summary = "Shared vocabulary and rules for mapping specifications."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data"
+]
+
+required_docs = [
+  "docs/law",
+  "docs/manifest"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "defines mapping vocabulary",
+  "defines lossiness declarations",
+  "defines mapping conformance expectations"
+]
+
+forbidden_capabilities = [
+  "binding one external standard as the only target",
+  "implementation adapter code as primary purpose"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Mapping
+# ------------------------------------------------------------
+
+[repo.mapping]
+summary = "Mapping from an external standard or model into SE-aligned structures."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data",
+  "examples"
+]
+
+required_docs = [
+  "docs/manifest",
+  "docs/examples"
+]
+
+recommended_docs = [
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "declares target external standard",
+  "defines mapping correspondences",
+  "declares lossy mappings",
+  "provides mapping examples"
+]
+
+forbidden_capabilities = [
+  "redefining mapspec vocabulary",
+  "redefining kernel semantics",
+  "embedding private operational data"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Adapter
+# ------------------------------------------------------------
+
+[repo.adapter]
+summary = "Operational adapter or connector implementation."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "tools"
+]
+
+required_docs = [
+  "docs/repo",
+  "docs/manifest"
+]
+
+recommended_docs = [
+  "docs/examples"
+]
+
+required_capabilities = [
+  "implements operational translation or integration",
+  "declares supported mapping/schema compatibility",
+  "supports cross-platform execution"
+]
+
+forbidden_capabilities = [
+  "redefining mapping law",
+  "embedding private deployment secrets",
+  "redefining constitutional law"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = false
+
+# ------------------------------------------------------------
+# Profile
+# ------------------------------------------------------------
+
+[repo.profile]
+summary = "Jurisdictional or contextual profile over an SE-aligned schema."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data"
+]
+
+required_docs = [
+  "docs/jurisdiction",
+  "docs/manifest"
+]
+
+recommended_docs = [
+  "docs/examples"
+]
+
+required_capabilities = [
+  "declares jurisdiction or context",
+  "specializes schema without redefining kernel",
+  "documents profile scope"
+]
+
+forbidden_capabilities = [
+  "embedding executable rules as primary purpose",
+  "redefining schema semantics outside declared profile scope"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Rules
+# ------------------------------------------------------------
+
+[repo.rules]
+summary = "Executable or formalized normative rules for a jurisdiction and focus."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data",
+  "examples"
+]
+
+required_docs = [
+  "docs/jurisdiction",
+  "docs/manifest",
+  "docs/examples"
+]
+
+recommended_docs = [
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "declares jurisdiction",
+  "declares focus",
+  "formalizes executable or testable rules",
+  "documents source and scope"
+]
+
+forbidden_capabilities = [
+  "redefining kernel invariants",
+  "redefining schema as primary purpose",
+  "embedding private data"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Pilot
+# ------------------------------------------------------------
+
+[repo.pilot]
+summary = "Demonstration or experimental implementation used to stress-test the ecosystem."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs"
+]
+
+required_docs = [
+  "docs/examples",
+  "docs/repo"
+]
+
+recommended_docs = [
+  "docs/manifest"
+]
+
+required_capabilities = [
+  "demonstrates or stress-tests ecosystem components",
+  "declares experimental scope"
+]
+
+forbidden_capabilities = [
+  "becoming the source of constitutional law",
+  "becoming the sole home of foundational schema or kernel definitions"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = false
+
+# ------------------------------------------------------------
+# Docs
+# ------------------------------------------------------------
+
+[repo.docs]
+summary = "Documentation-focused repository."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs"
+]
+
+required_docs = [
+  "docs"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "provides documentation as primary artifact"
+]
+
+forbidden_capabilities = [
+  "hidden normative law not declared in constitution",
+  "private operational deployment as primary purpose"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = false
+
+# ------------------------------------------------------------
+# Validation
+# ------------------------------------------------------------
+
+[validation]
+enforce_known_repo_classes = true
+enforce_required_root_files = true
+enforce_required_root_directories = true
+enforce_required_docs = true
+enforce_required_capabilities_declared = false
+enforce_forbidden_capabilities = false
+
+[notes]
+capability_fields_note = "Required and forbidden capabilities are constitutional guidance now and may later become machine-validated."

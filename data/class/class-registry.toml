@@ -1,0 +1,109 @@
+# ============================================================
+# SE Constitution: Class Registry
+# Defines allowed repository classes for the SE ecosystem.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Class Registry"
+
+[class.constitution]
+summary = "Architectural law and governing definitions for the SE ecosystem."
+stable = true
+allowed_repo_name_patterns = ["se-constitution"]
+suggested_repo_kind = ["spec", "formalization"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["constitution"]
+
+[class.admin]
+summary = "Automation, orchestration, and maintenance tooling for the SE ecosystem."
+stable = true
+allowed_repo_name_patterns = ["se-admin"]
+suggested_repo_kind = ["software", "tooling"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["administration"]
+
+[class.policy]
+summary = "Operational governance, procedures, and stewardship rules."
+stable = true
+allowed_repo_name_patterns = ["se-policy"]
+suggested_repo_kind = ["spec", "informative"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["policy"]
+
+[class.kernel]
+summary = "Foundational structural primitives, invariants, and enduring constraints."
+stable = true
+allowed_repo_name_patterns = ["se-kernel"]
+suggested_repo_kind = ["spec", "formalization"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["kernel"]
+
+[class.schema]
+summary = "Canonical schema for a defined semantic focus."
+stable = true
+allowed_repo_name_patterns = ["se-schema-{focus}"]
+suggested_repo_kind = ["formalization", "spec"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["schema"]
+
+[class.mapspec]
+summary = "Shared vocabulary and rules for mapping specifications."
+stable = true
+allowed_repo_name_patterns = ["se-mapspec"]
+suggested_repo_kind = ["spec", "formalization"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["mapping-specification"]
+
+[class.mapping]
+summary = "Mapping from an external standard or model into SE-aligned structures."
+stable = true
+allowed_repo_name_patterns = ["se-mapping-{standard}"]
+suggested_repo_kind = ["formalization", "software"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["mapping"]
+
+[class.adapter]
+summary = "Operational adapter or connector implementation."
+stable = true
+allowed_repo_name_patterns = ["se-adapter-{standard}"]
+suggested_repo_kind = ["software"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["adapter"]
+
+[class.profile]
+summary = "Jurisdictional or contextual profile over an SE-aligned schema."
+stable = true
+allowed_repo_name_patterns = ["se-profile-{jurisdiction}", "se-profile-{jurisdiction}-{focus}"]
+suggested_repo_kind = ["formalization", "spec"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["profile"]
+
+[class.rules]
+summary = "Executable or formalized normative rules for a jurisdiction and focus."
+stable = true
+allowed_repo_name_patterns = ["se-rules-{jurisdiction}", "se-rules-{jurisdiction}-{focus}"]
+suggested_repo_kind = ["formalization", "software"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["rules"]
+
+[class.pilot]
+summary = "Demonstration or experimental implementation used to stress-test the ecosystem."
+stable = false
+allowed_repo_name_patterns = ["se-pilot-{focus}"]
+suggested_repo_kind = ["software", "informative"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["pilot"]
+
+[class.docs]
+summary = "Documentation-focused repository."
+stable = true
+allowed_repo_name_patterns = ["se-docs", "se-docs-{focus}"]
+suggested_repo_kind = ["informative"]
+suggested_layer_space = ["SE"]
+suggested_layer_role = ["documentation"]
+
+[validation]
+single_class_required = true
+known_class_required = true

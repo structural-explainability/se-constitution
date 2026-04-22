@@ -1,0 +1,98 @@
+# ============================================================
+# SE Constitution: Naming Patterns
+# Defines allowed repository naming grammar.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Naming Patterns"
+
+[global]
+required_prefix = "se"
+separator = "-"
+ascii_only = true
+lowercase_only = true
+allow_underscore = false
+allow_space = false
+
+[token]
+# Country-qualified jurisdiction form only.
+jurisdiction_pattern = "{country}-{subdivision}"
+focus_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
+standard_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
+
+[pattern.constitution]
+class = "constitution"
+format = "se-constitution"
+
+[pattern.admin]
+class = "admin"
+format = "se-admin"
+
+[pattern.policy]
+class = "policy"
+format = "se-policy"
+
+[pattern.kernel]
+class = "kernel"
+format = "se-kernel"
+
+[pattern.mapspec]
+class = "mapspec"
+format = "se-mapspec"
+
+[pattern.schema]
+class = "schema"
+format = "se-schema-{focus}"
+required_tokens = ["focus"]
+
+[pattern.mapping]
+class = "mapping"
+format = "se-mapping-{standard}"
+required_tokens = ["standard"]
+
+[pattern.adapter]
+class = "adapter"
+format = "se-adapter-{standard}"
+required_tokens = ["standard"]
+
+[pattern.profile_base]
+class = "profile"
+format = "se-profile-{jurisdiction}"
+required_tokens = ["jurisdiction"]
+
+[pattern.profile_focus]
+class = "profile"
+format = "se-profile-{jurisdiction}-{focus}"
+required_tokens = ["jurisdiction", "focus"]
+
+[pattern.rules_base]
+class = "rules"
+format = "se-rules-{jurisdiction}"
+required_tokens = ["jurisdiction"]
+
+[pattern.rules_focus]
+class = "rules"
+format = "se-rules-{jurisdiction}-{focus}"
+required_tokens = ["jurisdiction", "focus"]
+
+[pattern.pilot]
+class = "pilot"
+format = "se-pilot-{focus}"
+required_tokens = ["focus"]
+
+[pattern.docs_base]
+class = "docs"
+format = "se-docs"
+
+[pattern.docs_focus]
+class = "docs"
+format = "se-docs-{focus}"
+required_tokens = ["focus"]
+
+[reserved]
+tokens = ["tmp", "misc", "test"]
+reserved_exact_repo_names = []
+reserved_focus_values = ["core"]
+notes = "The token 'core' is reserved for deliberate constitutional use and must not be used casually."

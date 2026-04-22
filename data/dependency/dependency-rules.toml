@@ -1,0 +1,55 @@
+# ============================================================
+# SE Constitution: Dependency Rules
+# Defines allowed dependency directions between repository classes.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Dependency Rules"
+
+[principle]
+no_cycles = true
+no_reverse_foundation_dependencies = true
+constitution_is_foundational = true
+
+[dependency.constitution]
+allowed = []
+
+[dependency.admin]
+allowed = ["constitution", "policy", "kernel", "schema", "mapspec", "mapping", "adapter", "profile", "rules", "docs"]
+
+[dependency.policy]
+allowed = ["constitution"]
+
+[dependency.kernel]
+allowed = ["constitution"]
+
+[dependency.schema]
+allowed = ["constitution", "kernel"]
+
+[dependency.mapspec]
+allowed = ["constitution", "kernel", "schema"]
+
+[dependency.mapping]
+allowed = ["constitution", "kernel", "schema", "mapspec"]
+
+[dependency.adapter]
+allowed = ["constitution", "kernel", "schema", "mapping"]
+
+[dependency.profile]
+allowed = ["constitution", "kernel", "schema"]
+
+[dependency.rules]
+allowed = ["constitution", "kernel", "schema", "profile"]
+
+[dependency.pilot]
+allowed = ["constitution", "kernel", "schema", "mapspec", "mapping", "adapter", "profile", "rules", "docs"]
+
+[dependency.docs]
+allowed = ["constitution", "policy", "kernel", "schema", "mapspec", "mapping", "adapter", "profile", "rules"]
+
+[validation]
+all_dependencies_must_be_declared_in_manifest = true
+dependency_classes_must_be_known = true
+forbid_unknown_dependency_classes = true
