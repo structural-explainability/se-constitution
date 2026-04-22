@@ -4,9 +4,10 @@
 [![Repo](https://img.shields.io/badge/repo-GitHub-black?logo=github)](https://github.com/structural-explainability/se-constitution)
 [![Python 3.15+](https://img.shields.io/badge/python-3.15%2B-blue?logo=python)](./pyproject.toml)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
-[![CI](https://github.com/structural-explainability/se-constitution/actions/workflows/ci-python-zensical.yml/badge.svg)](https://github.com/structural-explainability/se-constitution/actions/workflows/ci-python-zensical.yml)
-[![Docs](https://github.com/structural-explainability/se-constitution/actions/workflows/deploy-zensical.yml/badge.svg)](https://github.com/structural-explainability/se-constitution/actions/workflows/deploy-zensical.yml)
-[![Links](https://github.com/structural-explainability/se-constitution/actions/workflows/links.yml/badge.svg)](https://github.com/structural-explainability/se-constitution/actions/workflows/links.yml)
+
+[![CI](https://github.com/structural-explainability/se-constitution/actions/workflows/ci-python-zensical.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-constitution/actions/workflows/ci-python-zensical.yml)
+[![Docs](https://github.com/structural-explainability/se-constitution/actions/workflows/deploy-zensical.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-constitution/actions/workflows/deploy-zensical.yml)
+[![Links](https://github.com/structural-explainability/se-constitution/actions/workflows/links.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-constitution/actions/workflows/links.yml)
 
 > Structural Explainability constitution:
 > rules, schemas, and validation for the SE ecosystem.
