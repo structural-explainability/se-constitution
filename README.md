@@ -60,3 +60,15 @@ git push -u origin main
 ```
 
 </details>
+
+## Citation
+
+[CITATION.cff](./CITATION.cff)
+
+## License
+
+[LICENSE](./LICENSE)
+
+## Manifest
+
+[SE_MANIFEST.toml](./SE_MANIFEST.toml)

@@ -1,0 +1,77 @@
+# ============================================================
+# SE_MANIFEST.toml (Repository Declaration)
+# ============================================================
+
+schema = "se-manifest-2"
+
+# === Identity ===
+
+[meta]
+# WHY: Minimal metadata; versioned separately via Git tags
+name = "se-constitution"
+org = "structural-explainability"
+status = "active"
+version = "0.1.0"
+
+[repo]
+# WHY: Repo identity is defined structurally
+class = "constitution"
+summary = "Canonical specification and validation framework for Structural Explainability."
+
+# === Structural contract ===
+
+[depends]
+# WHY: Constitution is the root; no upstream dependencies
+optional = []
+required = []
+
+[provides]
+# WHY: Explicit artifact ownership (core to this repository)
+artifacts = [
+  "class-registry",
+  "dependency-rules",
+  "naming-patterns",
+  "manifest-schema",
+  "repo-requirements",
+  "validation",
+]
+
+[scope]
+# WHY: Keep this tight and structural
+includes = [
+  "definition of repository classes",
+  "definition of allowed dependency relationships",
+  "definition of naming constraints",
+  "definition of manifest structure",
+  "cross-artifact validation rules",
+]
+
+excludes = [
+  "domain-specific implementations",
+  "runtime systems",
+  "data processing logic",
+  "epistemic or causal interpretation",
+]
+
+[validation]
+# WHY: This repo defines validation, not just data
+entrypoint = "se_constitution.app:run_validate"
+
+# === Behavior / governance ===
+
+[naming]
+# WHY: Declares expected repo-family naming convention
+pattern = "se-*"
+
+[governance]
+# WHY: Declares governing authority for this repository
+authority = "structural-explainability"
+
+# === External references ===
+
+[citation]
+cff = "CITATION.cff"
+
+[traceability]
+# WHY: Reserved for future identifier resolution
+identifier_map = "none"
