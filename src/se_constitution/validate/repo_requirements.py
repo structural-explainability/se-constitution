@@ -7,9 +7,6 @@ def validate_repo_requirements(data: RepoRequirementsData) -> list[str]:
     """Validate repo requirements structure."""
     errors: list[str] = []
 
-    if "meta" not in data:
-        errors.append("repo-requirements.toml: missing [meta] section.")
-
     repo_section = data["repo"]
 
     for repo_class, repo_def in repo_section.items():

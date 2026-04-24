@@ -24,6 +24,10 @@ from se_constitution.types.cross_file import (
 from se_constitution.types.dependency import DependencyRulesData
 from se_constitution.validate.class_registry import validate_class_registry
 from se_constitution.validate.cross_file import validate_cross_file_consistency
+from se_constitution.validate.dependency_rules import validate_dependency_rules
+from se_constitution.validate.manifest_schema import validate_manifest_schema
+from se_constitution.validate.naming_patterns import validate_naming_patterns
+from se_constitution.validate.repo_requirements import validate_repo_requirements
 from tests.fixture.data import make_valid_data
 
 # tests/validate/ -> tests/ -> project root -> data/examples/
@@ -39,7 +43,7 @@ def load_toml(path: Path) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# Valid set
+# Valid set — one test per individual validator
 # ---------------------------------------------------------------------------
 
 
@@ -51,6 +55,37 @@ class TestValidExamples:
             ClassRegistryData, load_toml(VALID_DIR / "class" / "class-registry.toml")
         )
         errors = validate_class_registry(data)
+        assert errors == [], f"Expected no errors; got: {errors}"
+
+    def test_valid_naming_patterns_passes(self) -> None:
+        data = cast(
+            NamingPatternsData, load_toml(VALID_DIR / "naming" / "naming-patterns.toml")
+        )
+        errors = validate_naming_patterns(data)
+        assert errors == [], f"Expected no errors; got: {errors}"
+
+    def test_valid_dependency_rules_passes(self) -> None:
+        data = cast(
+            DependencyRulesData,
+            load_toml(VALID_DIR / "dependency" / "dependency-rules.toml"),
+        )
+        errors = validate_dependency_rules(data)
+        assert errors == [], f"Expected no errors; got: {errors}"
+
+    def test_valid_manifest_schema_passes(self) -> None:
+        data = cast(
+            ManifestSchemaData,
+            load_toml(VALID_DIR / "manifest" / "manifest-schema.toml"),
+        )
+        errors = validate_manifest_schema(data)
+        assert errors == [], f"Expected no errors; got: {errors}"
+
+    def test_valid_repo_requirements_passes(self) -> None:
+        data = cast(
+            RepoRequirementsData,
+            load_toml(VALID_DIR / "repo" / "repo-requirements.toml"),
+        )
+        errors = validate_repo_requirements(data)
         assert errors == [], f"Expected no errors; got: {errors}"
 
     def test_valid_cross_file_passes(self) -> None:
@@ -79,11 +114,9 @@ class TestValidExamples:
         assert errors == [], f"Expected no cross-file errors; got: {errors}"
         assert warnings == [], f"Expected no cross-file warnings; got: {warnings}"
 
-    # Extend with one test per individual validator as they are tightened in issues #1-#2.
-
 
 # ---------------------------------------------------------------------------
-# Invalid set
+# Invalid set — example file violations plus targeted uncovered-line tests
 # ---------------------------------------------------------------------------
 
 
@@ -138,65 +171,70 @@ class TestInvalidExamples:
         invalid = load_toml(INVALID_DIR / "class" / "class-registry.toml")
         assert valid != invalid
 
-    def test_violation_dependency_subject_class_unknown(self) -> None:
-        """Dependency rules subject class not in class-registry triggers cross-file error."""
-        data = cast(dict[str, Any], make_valid_data())
-        data["dependency_rules"]["dependency"]["phantom"] = {"allowed": []}
-        errors, _ = validate_cross_file_consistency(
-            class_registry=cast(ClassRegistryData, data["class_registry"]),
-            naming_patterns=cast(NamingPatternsData, data["naming_patterns"]),
-            dependency_rules=cast(DependencyRulesData, data["dependency_rules"]),
-            manifest_schema=cast(ManifestSchemaData, data["manifest_schema"]),
-            repo_requirements=cast(RepoRequirementsData, data["repo_requirements"]),
-        )
-        assert (
-            "dependency-rules.toml: dependency rules reference unknown class 'phantom'."
-            in errors
-        )
+    # --- targeted tests for uncovered validator lines ---
 
-    def test_violation_manifest_schema_unknown_class(self) -> None:
-        """Manifest schema class entry not in class-registry triggers cross-file error."""
-        data = cast(dict[str, Any], make_valid_data())
-        data["manifest_schema"]["class"]["phantom"] = {}
-        errors, _ = validate_cross_file_consistency(
-            class_registry=cast(ClassRegistryData, data["class_registry"]),
-            naming_patterns=cast(NamingPatternsData, data["naming_patterns"]),
-            dependency_rules=cast(DependencyRulesData, data["dependency_rules"]),
-            manifest_schema=cast(ManifestSchemaData, data["manifest_schema"]),
-            repo_requirements=cast(RepoRequirementsData, data["repo_requirements"]),
-        )
-        assert (
-            "manifest-schema.toml: class requirements reference unknown class 'phantom'."
-            in errors
-        )
-
-    def test_violation_repo_requirements_unknown_class(self) -> None:
-        """Repo requirements entry not in class-registry triggers cross-file error."""
-        data = cast(dict[str, Any], make_valid_data())
-        data["repo_requirements"]["repo"]["phantom"] = {
-            "summary": "Phantom requirements."
-        }
-        errors, _ = validate_cross_file_consistency(
-            class_registry=cast(ClassRegistryData, data["class_registry"]),
-            naming_patterns=cast(NamingPatternsData, data["naming_patterns"]),
-            dependency_rules=cast(DependencyRulesData, data["dependency_rules"]),
-            manifest_schema=cast(ManifestSchemaData, data["manifest_schema"]),
-            repo_requirements=cast(RepoRequirementsData, data["repo_requirements"]),
-        )
-        assert (
-            "repo-requirements.toml: repo requirements reference unknown class 'phantom'."
-            in errors
-        )
-
-    def test_warning_no_classes_defined(self) -> None:
-        """Empty class registry triggers no-classes warning."""
+    def test_class_registry_rejects_empty_class_section(self) -> None:
+        """Empty [class] section must be reported."""
         data = cast(dict[str, Any], make_valid_data())
         data["class_registry"]["class"] = {}
-        _, warnings = validate_cross_file_consistency(
-            class_registry=cast(ClassRegistryData, data["class_registry"]),
-            naming_patterns=cast(NamingPatternsData, data["naming_patterns"]),
-            dependency_rules=cast(DependencyRulesData, data["dependency_rules"]),
-            manifest_schema=cast(ManifestSchemaData, data["manifest_schema"]),
-            repo_requirements=cast(RepoRequirementsData, data["repo_requirements"]),
+        errors = validate_class_registry(
+            cast(ClassRegistryData, data["class_registry"])
         )
-        assert "No repo classes are currently defined." in warnings
+        assert "class-registry.toml: [class] must define at least one class." in errors
+
+    def test_dependency_rules_rejects_allowed_not_a_list(self) -> None:
+        """[dependency.{class}].allowed must be a list."""
+        data = cast(dict[str, Any], make_valid_data())
+        data["dependency_rules"]["dependency"]["kernel"]["allowed"] = "constitution"
+        errors = validate_dependency_rules(
+            cast(DependencyRulesData, data["dependency_rules"])
+        )
+        assert (
+            "dependency-rules.toml: [dependency.kernel] must define allowed as a list."
+            in errors
+        )
+
+    def test_manifest_schema_rejects_missing_meta(self) -> None:
+        """Missing [meta] section must be reported."""
+        data: dict[str, Any] = {"section": {}, "field": {}}
+        errors = validate_manifest_schema(cast(ManifestSchemaData, data))
+        assert "manifest-schema.toml: missing [meta] section." in errors
+
+    def test_naming_patterns_rejects_missing_global(self) -> None:
+        """Missing [global] section must be reported."""
+        data = cast(dict[str, Any], make_valid_data())
+        del data["naming_patterns"]["global"]
+        errors = validate_naming_patterns(
+            cast(NamingPatternsData, data["naming_patterns"])
+        )
+        assert "naming-patterns.toml: missing [global] section." in errors
+
+    def test_naming_patterns_rejects_empty_pattern_section(self) -> None:
+        """Empty [pattern] section must be reported."""
+        data = cast(dict[str, Any], make_valid_data())
+        data["naming_patterns"]["pattern"] = {}
+        errors = validate_naming_patterns(
+            cast(NamingPatternsData, data["naming_patterns"])
+        )
+        assert (
+            "naming-patterns.toml: [pattern] must define at least one pattern."
+            in errors
+        )
+
+    def test_repo_requirements_rejects_missing_summary(self) -> None:
+        """[repo.{class}] missing summary must be reported."""
+        data = cast(dict[str, Any], make_valid_data())
+        del data["repo_requirements"]["repo"]["kernel"]["summary"]
+        errors = validate_repo_requirements(
+            cast(RepoRequirementsData, data["repo_requirements"])
+        )
+        assert "repo-requirements.toml: [repo.kernel] must define summary." in errors
+
+    def test_repo_requirements_rejects_non_table_entry(self) -> None:
+        """[repo.{class}] must be a table, not a scalar."""
+        data = cast(dict[str, Any], make_valid_data())
+        data["repo_requirements"]["repo"]["kernel"] = "not-a-table"
+        errors = validate_repo_requirements(
+            cast(RepoRequirementsData, data["repo_requirements"])
+        )
+        assert "repo-requirements.toml: [repo.kernel] must be a table." in errors
