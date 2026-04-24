@@ -30,16 +30,28 @@ DESIGN RATIONALE:
 
 from se_constitution.types.class_registry import ClassRegistryData
 from se_constitution.types.cross_file import (
-    ManifestSchemaData,
     NamingPatternsData,
-    RepoRequirementsData,
 )
 from se_constitution.types.dependency import DependencyRulesData
+from se_constitution.types.manifest_schema import ManifestSchemaData
+from se_constitution.types.repo_requirements import RepoRequirementsData
 
 
 def _defined_classes(class_registry: ClassRegistryData) -> set[str]:
     """Return the set of defined repo classes."""
     return set(class_registry["class"].keys())
+
+
+def _classes_used_by_naming_patterns(
+    naming_patterns: NamingPatternsData,
+) -> set[str]:
+    """Return classes referenced by naming patterns."""
+    used: set[str] = set()
+    for pattern_def in naming_patterns.get("pattern", {}).values():
+        raw_class = pattern_def.get("class")
+        if isinstance(raw_class, str):
+            used.add(raw_class)
+    return used
 
 
 def validate_cross_file_consistency(
@@ -88,6 +100,31 @@ def validate_cross_file_consistency(
             errors.append(
                 f"repo-requirements.toml: repo requirements reference unknown class '{class_name}'."
             )
+
+    named_classes = _classes_used_by_naming_patterns(naming_patterns)
+    dependency_classes = set(dependency_rules["dependency"].keys())
+    manifest_classes = set(manifest_schema.get("class", {}).keys())
+    repo_requirement_classes = set(repo_requirements.get("repo", {}).keys())
+
+    for class_name in sorted(known_classes - named_classes):
+        errors.append(
+            f"class-registry.toml: class '{class_name}' has no naming pattern."
+        )
+
+    for class_name in sorted(known_classes - dependency_classes):
+        errors.append(
+            f"class-registry.toml: class '{class_name}' has no dependency rule."
+        )
+
+    for class_name in sorted(known_classes - manifest_classes):
+        errors.append(
+            f"class-registry.toml: class '{class_name}' has no manifest-schema entry."
+        )
+
+    for class_name in sorted(known_classes - repo_requirement_classes):
+        errors.append(
+            f"class-registry.toml: class '{class_name}' has no repo-requirements entry."
+        )
 
     if not known_classes:
         warnings.append("No repo classes are currently defined.")

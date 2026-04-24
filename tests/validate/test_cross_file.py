@@ -2,6 +2,11 @@
 
 from typing import Any, cast
 
+from se_constitution.types.class_registry import ClassRegistryData
+from se_constitution.types.cross_file import NamingPatternsData
+from se_constitution.types.dependency import DependencyRulesData
+from se_constitution.types.manifest_schema import ManifestSchemaData
+from se_constitution.types.repo_requirements import RepoRequirementsData
 from se_constitution.validate.cross_file import validate_cross_file_consistency
 from tests.fixture.data import make_valid_data
 
@@ -76,4 +81,17 @@ def test_cross_file_validation_rejects_unknown_repo_requirement_class() -> None:
     assert (
         "repo-requirements.toml: repo requirements reference unknown class 'unknown'."
         in errors
+    )
+
+
+def test_cross_file_missing_naming_pattern():
+    data = cast(dict[str, Any], make_valid_data())
+    del data["naming_patterns"]["pattern"]["kernel"]
+
+    _errors, _warnings = validate_cross_file_consistency(
+        class_registry=cast(ClassRegistryData, data["class_registry"]),
+        naming_patterns=cast(NamingPatternsData, data["naming_patterns"]),
+        dependency_rules=cast(DependencyRulesData, data["dependency_rules"]),
+        manifest_schema=cast(ManifestSchemaData, data["manifest_schema"]),
+        repo_requirements=cast(RepoRequirementsData, data["repo_requirements"]),
     )

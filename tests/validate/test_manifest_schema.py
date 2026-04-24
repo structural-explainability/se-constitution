@@ -2,7 +2,7 @@
 
 from typing import cast
 
-from se_constitution.types.cross_file import ManifestSchemaData
+from se_constitution.types.manifest_schema import ManifestSchemaData
 from se_constitution.validate.manifest_schema import validate_manifest_schema
 from tests.fixture.data import make_valid_data
 
@@ -21,3 +21,10 @@ def test_validate_manifest_schema_accepts_valid_data() -> None:
     data = get_manifest_schema()
     errors = validate_manifest_schema(data)
     assert errors == []
+
+
+def test_manifest_schema_missing_sections():
+    data = {"meta": {"version": "0.1.0", "status": "draft"}}
+    errors = validate_manifest_schema(data)  # type: ignore[arg-type]
+
+    assert "missing [section]" in errors[0]

@@ -7,11 +7,11 @@ from se_constitution.io.read import read_toml
 from se_constitution.report.text import render_validation_report
 from se_constitution.types.class_registry import ClassRegistryData
 from se_constitution.types.cross_file import (
-    ManifestSchemaData,
     NamingPatternsData,
-    RepoRequirementsData,
 )
 from se_constitution.types.dependency import DependencyRulesData
+from se_constitution.types.manifest_schema import ManifestSchemaData
+from se_constitution.types.repo_requirements import RepoRequirementsData
 from se_constitution.validate.class_registry import validate_class_registry
 from se_constitution.validate.cross_file import validate_cross_file_consistency
 from se_constitution.validate.dependency_rules import validate_dependency_rules

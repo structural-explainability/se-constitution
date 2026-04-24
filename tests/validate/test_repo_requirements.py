@@ -2,8 +2,8 @@
 
 from typing import cast
 
-from se_constitution.types.cross_file import RepoRequirementsData
 from se_constitution.types.primitives import TomlData
+from se_constitution.types.repo_requirements import RepoRequirementsData
 from se_constitution.validate.repo_requirements import validate_repo_requirements
 from tests.fixture.data import make_valid_data
 
