@@ -9,8 +9,22 @@
 [![Docs](https://github.com/structural-explainability/se-constitution/actions/workflows/deploy-zensical.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-constitution/actions/workflows/deploy-zensical.yml)
 [![Links](https://github.com/structural-explainability/se-constitution/actions/workflows/links.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-constitution/actions/workflows/links.yml)
 
-> Structural Explainability constitution:
+> Structural Explainability Constitution:
 > rules, schemas, and validation for the SE ecosystem.
+
+## Context
+
+se-constitution
+
+- defines rules
+
+se-kernel
+
+- defines primitives those rules depend on
+
+se-admin
+
+- enforces rules across repositories
 
 ## Command Reference
 

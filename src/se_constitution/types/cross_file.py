@@ -1,8 +1,8 @@
-"""Typed representations for cross-file constitutional artifacts."""
+"""types/cross_file.py - Typed representations for cross-file constitutional artifacts."""
 
 from typing import TypedDict
 
-from se_constitution.types.dependency import DependencyEntry
+from se_constitution.types.primitives import ArtifactMeta
 
 NamingPatternEntry = TypedDict(
     "NamingPatternEntry",
@@ -14,7 +14,7 @@ NamingPatternEntry = TypedDict(
 )
 # WHY:
 # - functional syntax required because "class" is a real TOML key
-# - lightweight shared entry across validators
+# - entry-level type; meta belongs at the artifact level in NamingPatternsData
 
 
 class NamingPatternsData(TypedDict):
@@ -23,16 +23,8 @@ class NamingPatternsData(TypedDict):
     Maps pattern identifiers to naming definitions.
     """
 
+    meta: ArtifactMeta
     pattern: dict[str, NamingPatternEntry]
-
-
-class DependencyRulesData(TypedDict):
-    """Dependency rules artifact structure.
-
-    Reuses canonical dependency entry definitions.
-    """
-
-    dependency: dict[str, DependencyEntry]
 
 
 ManifestSchemaData = TypedDict(
@@ -44,7 +36,11 @@ ManifestSchemaData = TypedDict(
 )
 # WHY:
 # - functional syntax required because "class" is a real TOML key
-# - only class mapping used in cross-file validation today
+# - Python does not support inheriting functional TypedDicts from class-syntax TypedDicts
+# - consequence: "meta" cannot be declared required here
+# - validate_manifest_schema therefore retains the "meta" not in data check,
+#   which IS reachable because meta is absent from this TypedDict
+# TODO: revisit if TypedDict inheritance across syntaxes is resolved in a future Python version
 
 
 class RepoRequirementsData(TypedDict):
@@ -54,4 +50,5 @@ class RepoRequirementsData(TypedDict):
     Kept broad until structure is enforced by validation.
     """
 
+    meta: ArtifactMeta
     repo: dict[str, object]

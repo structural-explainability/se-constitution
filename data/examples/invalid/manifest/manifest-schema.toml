@@ -1,0 +1,33 @@
+# ============================================================
+# Canonical Invalid Example: Manifest Schema
+# Defines required sections and fields for SE_MANIFEST.toml.
+# Class entries match classes in class-registry.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Manifest Schema (Minimal Invalid Example)"
+
+[section.repo]
+required = true
+
+[section.layer]
+required = true
+
+[section.depends]
+required = true
+
+[field."repo.name"]
+type = "string"
+required = true
+
+[field."repo.class"]
+type = "string"
+required = true
+
+[class.constitution]
+required_repo_name_patterns = ["se-constitution"]
+
+[class.kernel]
+required_repo_name_patterns = ["se-kernel"]

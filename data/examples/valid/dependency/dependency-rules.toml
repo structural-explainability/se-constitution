@@ -1,0 +1,27 @@
+# ============================================================
+# Canonical Valid Example: Dependency Rules
+# constitution has no dependencies (foundational).
+# kernel may only depend on constitution.
+# All referenced classes exist in class-registry.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Dependency Rules (Minimal Valid Example)"
+
+[principle]
+no_cycles = true
+no_reverse_foundation_dependencies = true
+constitution_is_foundational = true
+
+[dependency.constitution]
+allowed = []
+
+[dependency.kernel]
+allowed = ["constitution"]
+
+[validation]
+all_dependencies_must_be_declared_in_manifest = true
+dependency_classes_must_be_known = true
+forbid_unknown_dependency_classes = true

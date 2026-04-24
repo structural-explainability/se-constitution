@@ -1,4 +1,4 @@
-"""Validation for dependency rules data."""
+"""validate/dependency_rules.py - Validation for dependency rules data."""
 
 from typing import Any
 

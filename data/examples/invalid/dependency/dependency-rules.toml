@@ -1,0 +1,26 @@
+# ============================================================
+# Canonical Invalid Example: Dependency Rules
+# VIOLATION 2: kernel's allowed list contains 'phantom', which is not a known class.
+# Expected error: "dependency-rules.toml: class 'kernel' allows unknown dependency class 'phantom'."
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Dependency Rules (Invalid Example)"
+
+[principle]
+no_cycles = true
+no_reverse_foundation_dependencies = true
+constitution_is_foundational = true
+
+[dependency.constitution]
+allowed = []
+
+[dependency.kernel]
+# VIOLATION 2: 'phantom' is not defined in class-registry.toml.
+allowed = ["constitution", "phantom"]
+
+[validation]
+dependency_classes_must_be_known = true
+forbid_unknown_dependency_classes = true

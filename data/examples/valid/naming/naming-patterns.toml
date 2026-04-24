@@ -1,0 +1,26 @@
+# ============================================================
+# Canonical Valid Example: Naming Patterns
+# Patterns for constitution and kernel only.
+# All patterns reference classes defined in class-registry.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Naming Patterns (Minimal Valid Example)"
+
+[global]
+required_prefix = "se"
+separator = "-"
+ascii_only = true
+lowercase_only = true
+allow_underscore = false
+allow_space = false
+
+[pattern.constitution]
+class = "constitution"
+format = "se-constitution"
+
+[pattern.kernel]
+class = "kernel"
+format = "se-kernel"

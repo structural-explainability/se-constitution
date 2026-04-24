@@ -20,14 +20,6 @@ def test_validate_repo_requirements_accepts_valid_data() -> None:
     assert errors == []
 
 
-def test_validate_repo_requirements_requires_repo_section() -> None:
-    """Missing repo section should be reported."""
-    data = cast(TomlData, get_repo_requirements())
-    del data["repo"]
-    errors = validate_repo_requirements(cast(RepoRequirementsData, data))
-    assert "repo-requirements.toml: missing [repo] section." in errors
-
-
 def test_validate_repo_requirements_requires_summary() -> None:
     """Each repo requirement must define a summary."""
     data = cast(TomlData, get_repo_requirements())

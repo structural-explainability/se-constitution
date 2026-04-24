@@ -27,6 +27,8 @@ PRIVATE-NOTES.md
 
 # WHY: Commit recommended extensions (opt-in) for consistent development experience.
 # NOTE: Share recommendations, not personal editor styles or preferences.
+# Must reinclude directory first so Git will traverse
+!.vscode/
 !.vscode/extensions.json
 !.vscode/settings.json
 

@@ -6,6 +6,8 @@ Canonical specification and validation framework for Structural Explainability.
 
 - [Class Registry](./class/)
 - [Dependency Rules](./dependency/)
+- [Examples](./examples/)
+- [Invariants](./invariants/)
 - [Naming Patterns](./naming/)
 - [Manifest Schema](./manifest/)
 - [Repository Requirements](./repo/)
@@ -15,4 +17,3 @@ Canonical specification and validation framework for Structural Explainability.
 - [Law](./law/)
 - [Jurisdiction](./jurisdiction/)
 - [Glossary](./glossary/)
-- [Examples](./examples/)

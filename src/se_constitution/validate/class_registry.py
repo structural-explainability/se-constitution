@@ -1,4 +1,4 @@
-"""Validation for class registry data."""
+"""validate/class_registry.py - Validation for class registry data."""
 
 from se_constitution.types.class_registry import ClassRegistryData
 

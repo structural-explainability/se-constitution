@@ -1,0 +1,24 @@
+# ============================================================
+# Canonical Valid Example: Class Registry
+# Minimal two-class ecosystem: constitution + kernel.
+# All classes have required summary. Validation flags present.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Class Registry (Minimal Valid Example)"
+
+[class.constitution]
+summary = "Architectural law and governing definitions for the SE ecosystem."
+stable = true
+allowed_repo_name_patterns = ["se-constitution"]
+
+[class.kernel]
+summary = "Foundational structural primitives, invariants, and enduring constraints."
+stable = true
+allowed_repo_name_patterns = ["se-kernel"]
+
+[validation]
+single_class_required = true
+known_class_required = true

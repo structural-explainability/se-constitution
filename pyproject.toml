@@ -129,7 +129,7 @@ force-sort-within-sections = true
 
 [tool.ruff.lint.pydocstyle]
 # REQ: Google style is the project-wide docstring convention.
-convention = "google"   # ALT: "numpy" — choose one, never mix.
+convention = "google"   # ALT: "numpy" choose one, never mix.
 
 # ============================================================
 # SECTION 3: BUILD SYSTEM (boilerplate; CUSTOM src/ agreement)
@@ -154,7 +154,7 @@ version-file = "src/se_constitution/_version.py"
 packages = ["src/se_constitution"]  # REQ.PACKAGES: Discovery rooted at src/.
 
 [tool.hatch.version]
-# WHY: Version derived from git tags at build time — no manual source file edits.
+# WHY: Version derived from git tags at build time
 source = "vcs"
 fallback-version = "0.1.0"              # Used when no git tags present (fresh clone, CI).
 tag-pattern = "^(?:v)?(?P<version>\\d+\\.\\d+\\.\\d+)$"

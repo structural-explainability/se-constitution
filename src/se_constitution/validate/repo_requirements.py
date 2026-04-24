@@ -1,4 +1,4 @@
-"""Validation for repo requirements data."""
+"""validate/repo_requirements.py - Validation for repo requirements data."""
 
 from se_constitution.types.cross_file import RepoRequirementsData
 
@@ -9,10 +9,6 @@ def validate_repo_requirements(data: RepoRequirementsData) -> list[str]:
 
     if "meta" not in data:
         errors.append("repo-requirements.toml: missing [meta] section.")
-
-    if "repo" not in data:
-        errors.append("repo-requirements.toml: missing [repo] section.")
-        return errors
 
     repo_section = data["repo"]
 

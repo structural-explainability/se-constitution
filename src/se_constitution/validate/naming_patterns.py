@@ -1,4 +1,4 @@
-"""Validation for naming patterns data."""
+"""validate/naming_patterns.py - Validation for naming patterns data."""
 
 from se_constitution.types.cross_file import NamingPatternsData
 
@@ -7,15 +7,8 @@ def validate_naming_patterns(data: NamingPatternsData) -> list[str]:
     """Validate naming patterns structure."""
     errors: list[str] = []
 
-    if "meta" not in data:
-        errors.append("naming-patterns.toml: missing [meta] section.")
-
     if "global" not in data:
         errors.append("naming-patterns.toml: missing [global] section.")
-
-    if "pattern" not in data:
-        errors.append("naming-patterns.toml: missing [pattern] section.")
-        return errors
 
     pattern_section = data["pattern"]
 

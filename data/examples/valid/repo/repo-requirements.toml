@@ -1,0 +1,27 @@
+# ============================================================
+# Canonical Valid Example: Repo Requirements
+# Minimum obligations for constitution and kernel classes.
+# All repo keys match classes in class-registry.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Repo Requirements Registry (Minimal Valid Example)"
+
+[global]
+required_root_files = ["README.md", "SE_MANIFEST.toml"]
+
+[repo.constitution]
+summary = "Architectural law and governing definitions for the SE ecosystem."
+require_ci = true
+require_manifest_validation = true
+
+[repo.kernel]
+summary = "Foundational structural primitives, invariants, and enduring constraints."
+require_ci = true
+require_manifest_validation = true
+
+[validation]
+enforce_known_repo_classes = true
+enforce_required_root_files = true

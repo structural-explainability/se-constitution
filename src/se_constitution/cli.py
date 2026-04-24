@@ -1,4 +1,4 @@
-"""Command-line interface."""
+"""cli.py - Command-line interface."""
 
 import argparse
 

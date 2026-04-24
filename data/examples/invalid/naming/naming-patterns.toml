@@ -1,0 +1,29 @@
+# ============================================================
+# Canonical Invalid Example: Naming Patterns
+# VIOLATION 3: [pattern.phantom] references class 'phantom' not in class-registry.
+# Expected error: cross-file - naming pattern class 'phantom' is not a known class.
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Naming Patterns (Invalid Example)"
+
+[global]
+required_prefix = "se"
+separator = "-"
+ascii_only = true
+lowercase_only = true
+
+[pattern.constitution]
+class = "constitution"
+format = "se-constitution"
+
+[pattern.kernel]
+class = "kernel"
+format = "se-kernel"
+
+[pattern.phantom]
+# VIOLATION 3: 'phantom' is not defined in class-registry.toml.
+class = "phantom"
+format = "se-phantom"

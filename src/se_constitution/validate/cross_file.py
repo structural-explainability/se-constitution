@@ -1,4 +1,4 @@
-"""Cross-file validation for constitutional artifacts.
+"""validate/cross_file.py - Cross-file validation for constitutional artifacts.
 
 - DependencyRulesData is imported from types.dependency (artifact-specific),
   NOT from types.cross_file.

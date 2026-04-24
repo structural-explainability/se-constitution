@@ -2,6 +2,8 @@
 
 from typing import TypedDict
 
+from se_constitution.types.primitives import ArtifactMeta
+
 
 class DependencyEntry(TypedDict):
     """Dependency rule entry structure.
@@ -21,5 +23,5 @@ class DependencyRulesData(TypedDict):
     constitutional artifact with a stable repeated entry shape.
     """
 
-    meta: dict[str, str]
+    meta: ArtifactMeta
     dependency: dict[str, DependencyEntry]

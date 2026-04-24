@@ -1,4 +1,4 @@
-"""Application orchestration for se_constitution."""
+"""app.py - Application orchestration for se_constitution."""
 
 from typing import cast
 

@@ -1,0 +1,24 @@
+# ============================================================
+# Canonical Invalid Example: Class Registry
+# VIOLATION 1: [class.kernel] is missing required 'summary' field.
+# Expected error: "class-registry.toml: [class.kernel] must define summary or description."
+# ============================================================
+
+[meta]
+version = "0.1.0"
+status = "draft"
+title = "SE Constitution Class Registry (Invalid Example)"
+
+[class.constitution]
+summary = "Architectural law and governing definitions for the SE ecosystem."
+stable = true
+allowed_repo_name_patterns = ["se-constitution"]
+
+[class.kernel]
+# VIOLATION 1: 'summary' intentionally omitted.
+stable = true
+allowed_repo_name_patterns = ["se-kernel"]
+
+[validation]
+single_class_required = true
+known_class_required = true

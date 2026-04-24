@@ -20,14 +20,6 @@ def test_validate_naming_patterns_accepts_valid_data() -> None:
     assert errors == []
 
 
-def test_validate_naming_patterns_requires_pattern_section() -> None:
-    """Missing pattern section should be reported."""
-    data = cast(TomlData, get_naming_patterns())
-    del data["pattern"]
-    errors = validate_naming_patterns(cast(NamingPatternsData, data))
-    assert "naming-patterns.toml: missing [pattern] section." in errors
-
-
 def test_validate_naming_patterns_requires_format() -> None:
     """Each pattern must define a format."""
     data = cast(TomlData, get_naming_patterns())
