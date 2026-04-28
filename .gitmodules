@@ -1,0 +1,3 @@
+[submodule "external/se-formal-contract"]
+	path = external/se-formal-contract
+	url = https://github.com/structural-explainability/se-formal-contract
