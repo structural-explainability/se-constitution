@@ -80,6 +80,14 @@ suggested_repo_kind = ["formalization", "spec"]
 suggested_layer_space = ["SE"]
 suggested_layer_role = ["profile"]
 
+[class.regimes]
+label = "Regimes"
+summary = "Repository class for executable identity and persistence regime profiles, transformation families, and regime response artifacts."
+
+[class.govsrc]
+label = "Government source materials"
+summary = "Repository class for traceable source materials from governmental or official public bodies."
+
 [class.rules]
 summary = "Executable or formalized normative rules for a jurisdiction and focus."
 stable = true

@@ -332,6 +332,53 @@ require_manifest_validation = true
 require_data_validation = true
 
 # ------------------------------------------------------------
+# Regimes
+# ------------------------------------------------------------
+
+[repo.regimes]
+summary = "Executable identity and persistence regime definitions, transformation families, and response verdicts."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data",
+  "src",
+  "tests"
+]
+
+required_docs = [
+  "docs/manifest",
+  "docs/regimes"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "defines executable regime profiles",
+  "defines transformation family responses",
+  "provides testable PRS BRK INH behavior",
+  "supports regime stress testing"
+]
+
+forbidden_capabilities = [
+  "redefining kernel invariants",
+  "embedding domain-specific mappings as primary purpose",
+  "introducing causal or normative interpretation at the substrate level"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
 # Mapping
 # ------------------------------------------------------------
 
@@ -455,6 +502,51 @@ required_capabilities = [
 forbidden_capabilities = [
   "embedding executable rules as primary purpose",
   "redefining schema semantics outside declared profile scope"
+]
+
+require_ci = true
+require_manifest_validation = true
+require_data_validation = true
+
+# ------------------------------------------------------------
+# Govsrc
+# ------------------------------------------------------------
+
+[repo.govsrc]
+summary = "Traceable source materials from governmental or official public bodies."
+
+required_root_files = [
+  "README.md",
+  "SE_MANIFEST.toml",
+  "LICENSE"
+]
+
+required_root_directories = [
+  "docs",
+  "data"
+]
+
+required_docs = [
+  "docs/manifest",
+  "docs/sources"
+]
+
+recommended_docs = [
+  "docs/examples",
+  "docs/glossary"
+]
+
+required_capabilities = [
+  "preserves traceable source materials",
+  "documents source provenance",
+  "supports reproducible references from mappings profiles and rules"
+]
+
+forbidden_capabilities = [
+  "redefining kernel semantics",
+  "redefining mapping vocabulary",
+  "introducing interpretation beyond the source material",
+  "serving as executable rule logic"
 ]
 
 require_ci = true

@@ -1,7 +1,7 @@
 # ============================================================
 # .github/workflows/ci-python-zensical.yml (Continuous Integration)
 # ============================================================
-# Updated: 2026-04-22
+# Updated: 2026-04-27 REPO SPECIFIC Execution section
 #
 # WHY-FILE: Validate repository hygiene, Python correctness, and documentation builds.
 # REQ: CI MUST NOT introduce arbitrary rules that are not reproducible locally.
@@ -122,3 +122,14 @@ jobs:
         # OBS: Build only; deployment is handled by a separate workflow if needed.
         # OBS: Conditional on zensical.toml so this workflow is reusable across
         #      repos that may not yet have docs configured.
+
+      # ============================================================
+      # E) EXECUTION: Module entrypoints and validation
+      # ============================================================
+
+      - name: E1) Validate SE Constitution
+        run: uv run python -m se_constitution validate
+        # WHY: Ensures all constitutional registries remain internally consistent.
+        # WHY: Catches missing class definitions, dependency rules, naming patterns,
+        #      manifest schema entries, and repo requirement coverage.
+        # OBS: This is the authoritative integrity check for the SE ecosystem.

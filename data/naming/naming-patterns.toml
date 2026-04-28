@@ -19,6 +19,8 @@ allow_space = false
 [token]
 # Country-qualified jurisdiction form only.
 jurisdiction_pattern = "{country}-{subdivision}"
+notes = "Jurisdiction tokens may contain a hyphen (e.g., 'us-missouri') and are treated as a single logical token."
+domain_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
 focus_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
 standard_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
 
@@ -67,6 +69,25 @@ class = "profile"
 format = "se-profile-{jurisdiction}-{focus}"
 required_tokens = ["jurisdiction", "focus"]
 
+[pattern.regimes_base]
+class = "regimes"
+format = "se-regimes"
+
+[pattern.regimes_focus]
+class = "regimes"
+format = "se-regimes-{focus}"
+required_tokens = ["focus"]
+
+[pattern.regimes_focus_domain]
+class = "regimes"
+format = "se-regimes-{focus}-{domain}"
+required_tokens = ["focus", "domain"]
+
+[pattern.regimes_tool]
+class = "regimes"
+format = "se-regimes-{focus}"
+required_tokens = ["focus"]
+
 [pattern.rules_base]
 class = "rules"
 format = "se-rules-{jurisdiction}"
@@ -81,6 +102,16 @@ required_tokens = ["jurisdiction", "focus"]
 class = "pilot"
 format = "se-pilot-{focus}"
 required_tokens = ["focus"]
+
+[pattern.govsrc_base]
+class = "govsrc"
+format = "se-govsrc-{jurisdiction}"
+required_tokens = ["jurisdiction"]
+
+[pattern.govsrc_focus]
+class = "govsrc"
+format = "se-govsrc-{jurisdiction}-{focus}"
+required_tokens = ["jurisdiction", "focus"]
 
 [pattern.docs_base]
 class = "docs"

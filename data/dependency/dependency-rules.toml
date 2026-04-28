@@ -1,6 +1,9 @@
 # ============================================================
 # SE Constitution: Dependency Rules
 # Defines allowed dependency directions between repository classes.
+#
+# Sections MUST remain in semantic (architectural) order.
+# Lists MUST be sorted in alphabetical order for stability and diff clarity.
 # ============================================================
 
 [meta]
@@ -17,7 +20,20 @@ constitution_is_foundational = true
 allowed = []
 
 [dependency.admin]
-allowed = ["constitution", "policy", "kernel", "schema", "mapspec", "mapping", "adapter", "profile", "rules", "docs"]
+allowed = [
+    "adapter",
+    "constitution",
+    "docs",
+    "govsrc",
+    "kernel",
+    "mapping",
+    "mapspec",
+    "policy",
+    "profile",
+    "regimes",
+    "rules",
+    "schema",
+]
 
 [dependency.policy]
 allowed = ["constitution"]
@@ -40,14 +56,42 @@ allowed = ["constitution", "kernel", "schema", "mapping"]
 [dependency.profile]
 allowed = ["constitution", "kernel", "schema"]
 
+[dependency.regimes]
+allowed = ["constitution", "kernel", "mapspec"]
+
+[dependency.govsrc]
+allowed = ["constitution", "mapspec"]
+
 [dependency.rules]
 allowed = ["constitution", "kernel", "schema", "profile"]
 
 [dependency.pilot]
-allowed = ["constitution", "kernel", "schema", "mapspec", "mapping", "adapter", "profile", "rules", "docs"]
+allowed = [
+    "adapter",
+    "constitution",
+    "docs",
+    "kernel",
+    "mapping",
+    "mapspec",
+    "profile",
+    "rules",
+    "schema",
+]
 
 [dependency.docs]
-allowed = ["constitution", "policy", "kernel", "schema", "mapspec", "mapping", "adapter", "profile", "rules"]
+allowed = [
+    "adapter",
+    "constitution",
+    "govsrc",
+    "kernel",
+    "mapping",
+    "mapspec",
+    "policy",
+    "profile",
+    "regimes",
+    "rules",
+    "schema",
+]
 
 [validation]
 all_dependencies_must_be_declared_in_manifest = true

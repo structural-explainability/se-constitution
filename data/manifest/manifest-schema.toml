@@ -280,6 +280,14 @@ required_layer_roles = ["profile"]
 forbidden_sections = []
 required_compatibility_fields = ["constitution", "kernel", "schema"]
 
+[class.regimes]
+required_sections = ["meta", "repo", "depends", "provides", "scope", "citation"]
+optional_sections = ["validation", "naming", "governance", "traceability"]
+
+[class.govsrc]
+required_sections = ["meta", "repo", "provides", "scope", "citation"]
+optional_sections = ["depends", "validation", "naming", "governance", "traceability"]
+
 [class.rules]
 required_repo_name_patterns = ["se-rules-{jurisdiction}", "se-rules-{jurisdiction}-{focus}"]
 required_layer_roles = ["rules"]
