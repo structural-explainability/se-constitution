@@ -96,7 +96,6 @@ required_files = [
 ]
 
 required_directories = [
-  "SETheory",
   "docs",
 ]
 
