@@ -2,6 +2,18 @@
 
 Canonical specification and validation framework for Structural Explainability.
 
+## Architecture
+
+- [Architecture](./architecture.md)
+
+## Boundary
+
+- [Boundary](./formal-contract-boundary.md)
+
+## Validation
+
+- [Validation Flow](./validation-flow.md)
+
 ## Artifacts
 
 - [Class Registry](./class/)
@@ -17,3 +29,7 @@ Canonical specification and validation framework for Structural Explainability.
 - [Law](./law/)
 - [Jurisdiction](./jurisdiction/)
 - [Glossary](./glossary/)
+
+## Contribution Workflow
+
+- [Contribution Workflow](./contribution-workflow.md)

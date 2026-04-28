@@ -33,12 +33,10 @@ se-admin
 
 ### In a machine terminal
 
-After you get a copy of this repo in your own GitHub account,
-open a machine terminal in `Repos` or where you want the project:
+Open a machine terminal where you want the project:
 
 ```shell
-# Replace username with YOUR GitHub username.
-git clone https://github.com/username/se-constitution
+git clone https://github.com/structural-explainability/se-constitution
 
 cd se-constitution
 code .
@@ -50,6 +48,8 @@ code .
 uv self update
 uv python pin 3.15
 uv sync --extra dev --extra docs --upgrade
+
+git submodule update --init --recursive
 
 uvx pre-commit install
 

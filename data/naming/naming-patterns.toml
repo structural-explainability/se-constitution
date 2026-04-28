@@ -24,6 +24,15 @@ domain_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
 focus_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
 standard_pattern = "[a-z0-9]+(?:-[a-z0-9]+)*"
 
+[pattern.formal_contract]
+class = "formal_contract"
+format = "se-formal-contract"
+
+[pattern.theory]
+class = "theory"
+format = "se-theory-{focus}"
+required_tokens = ["focus"]
+
 [pattern.constitution]
 class = "constitution"
 format = "se-constitution"

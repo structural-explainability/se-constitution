@@ -12,12 +12,23 @@ status = "draft"
 title = "SE Constitution Dependency Rules"
 
 [principle]
+formal_contract_is_root = true
 no_cycles = true
 no_reverse_foundation_dependencies = true
 constitution_is_foundational = true
 
-[dependency.constitution]
+[dependency.formal_contract]
 allowed = []
+
+[dependency.theory]
+allowed = [
+    "formal_contract",
+]
+
+[dependency.constitution]
+allowed = [
+    "formal_contract",
+]
 
 [dependency.admin]
 allowed = [

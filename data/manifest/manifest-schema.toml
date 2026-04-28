@@ -34,84 +34,59 @@ schema_url_required = true
 required = true
 description = "Non-normative contextual information about the manifest and framework."
 allowed_fields = [
-  "framework",
-  "framework_url",
-  "framework_note",
-  "description",
-  "purpose"
+    "framework",
+    "framework_url",
+    "framework_note",
+    "description",
+    "purpose",
 ]
 
 [section.repo]
 required = true
 description = "Stable repository identity and declared class."
-allowed_fields = [
-  "name",
-  "org",
-  "class",
-  "kind",
-  "status",
-  "since",
-  "summary"
-]
+allowed_fields = ["name", "org", "class", "kind", "status", "since", "summary"]
 
 [section.layer]
 required = true
 description = "Declared epistemic position."
-allowed_fields = [
-  "space",
-  "role"
-]
+allowed_fields = ["space", "role"]
 
 [section.depends]
 required = true
 description = "Declared upstream dependencies."
-allowed_fields = [
-  "required",
-  "optional"
-]
+allowed_fields = ["required", "optional"]
 
 [section.provides]
 required = true
 description = "Artifacts intentionally provided and maintained."
-allowed_fields = [
-  "artifacts"
-]
+allowed_fields = ["artifacts"]
 
 [section.scope]
 required = true
 description = "Explicit semantic boundary."
-allowed_fields = [
-  "includes",
-  "excludes"
-]
+allowed_fields = ["includes", "excludes"]
 
 [section.compatibility]
 required = false
 description = "Declared compatibility with constitutional and ecosystem components."
 allowed_fields = [
-  "constitution",
-  "kernel",
-  "mapspec",
-  "schema",
-  "profile",
-  "rules"
+    "constitution",
+    "kernel",
+    "mapspec",
+    "schema",
+    "profile",
+    "rules",
 ]
 
 [section.citation]
 required = true
 description = "Citation pointer metadata."
-allowed_fields = [
-  "cff",
-  "preferred",
-  "bib_hint"
-]
+allowed_fields = ["cff", "preferred", "bib_hint"]
 
 [section.traceability]
 required = true
 description = "Identifier resolution and traceability strategy."
-allowed_fields = [
-  "identifier_map"
-]
+allowed_fields = ["identifier_map"]
 
 # ------------------------------------------------------------
 # Field definitions
@@ -226,6 +201,18 @@ required = true
 # Class-specific requirements
 # ------------------------------------------------------------
 
+[class.formal_contract]
+required_repo_name_patterns = ["se-formal-contract"]
+required_layer_roles = ["formal-contract"]
+forbidden_sections = []
+required_compatibility_fields = []
+
+[class.theory]
+required_repo_name_patterns = ["se-theory-{focus}"]
+required_layer_roles = ["theory"]
+forbidden_sections = []
+required_compatibility_fields = []
+
 [class.constitution]
 required_repo_name_patterns = ["se-constitution"]
 required_layer_roles = ["constitution"]
@@ -275,7 +262,10 @@ forbidden_sections = []
 required_compatibility_fields = ["constitution", "kernel"]
 
 [class.profile]
-required_repo_name_patterns = ["se-profile-{jurisdiction}", "se-profile-{jurisdiction}-{focus}"]
+required_repo_name_patterns = [
+    "se-profile-{jurisdiction}",
+    "se-profile-{jurisdiction}-{focus}",
+]
 required_layer_roles = ["profile"]
 forbidden_sections = []
 required_compatibility_fields = ["constitution", "kernel", "schema"]
@@ -286,10 +276,19 @@ optional_sections = ["validation", "naming", "governance", "traceability"]
 
 [class.govsrc]
 required_sections = ["meta", "repo", "provides", "scope", "citation"]
-optional_sections = ["depends", "validation", "naming", "governance", "traceability"]
+optional_sections = [
+    "depends",
+    "validation",
+    "naming",
+    "governance",
+    "traceability",
+]
 
 [class.rules]
-required_repo_name_patterns = ["se-rules-{jurisdiction}", "se-rules-{jurisdiction}-{focus}"]
+required_repo_name_patterns = [
+    "se-rules-{jurisdiction}",
+    "se-rules-{jurisdiction}-{focus}",
+]
 required_layer_roles = ["rules"]
 forbidden_sections = []
 required_compatibility_fields = ["constitution", "kernel", "schema"]
@@ -330,10 +329,10 @@ empty_required_lists_allowed = true
 [notes]
 manifest_role = "Declares repository intent, scope, role, and compatibility under constitutional law."
 non_goals = [
-  "build configuration",
-  "deployment configuration",
-  "runtime secrets",
-  "replace README documentation",
-  "replace CITATION.cff",
-  "duplicate constitutional law tables"
+    "build configuration",
+    "deployment configuration",
+    "runtime secrets",
+    "replace README documentation",
+    "replace CITATION.cff",
+    "duplicate constitutional law tables",
 ]

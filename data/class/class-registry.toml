@@ -8,6 +8,14 @@ version = "0.1.0"
 status = "draft"
 title = "SE Constitution Class Registry"
 
+[class.formal_contract]
+label = "Formal Contract"
+description = "Lean 4-verified formal contract exporting invariants, regimes, relations, and proof status to operational SE repositories."
+
+[class.theory]
+label = "Theory"
+description = "Lean 4 theorem-development repositories for Structural Explainability theory."
+
 [class.constitution]
 summary = "Architectural law and governing definitions for the SE ecosystem."
 stable = true

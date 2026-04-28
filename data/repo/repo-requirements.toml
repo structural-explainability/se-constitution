@@ -58,6 +58,50 @@ require_ci = true
 require_manifest_validation = true
 
 # ------------------------------------------------------------
+# Formal Contract
+# ------------------------------------------------------------
+
+[repo.formal_contract]
+summary = "Lean 4-verified formal contract exporting invariants, regimes, relations, and proof status to operational SE repositories."
+
+required_files = [
+  "SE_MANIFEST.toml",
+  "README.md",
+  "CHANGELOG.md",
+  "CITATION.cff",
+  "lean-toolchain",
+  "lakefile.toml",
+]
+
+required_directories = [
+  "SEFormalContract",
+  "data/contract",
+  "docs",
+]
+
+# ------------------------------------------------------------
+# Theory
+# ------------------------------------------------------------
+
+[repo.theory]
+summary = "Lean 4 theorem development repositories for Structural Explainability theory."
+
+required_files = [
+  "SE_MANIFEST.toml",
+  "README.md",
+  "CHANGELOG.md",
+  "CITATION.cff",
+  "lean-toolchain",
+  "lakefile.toml",
+]
+
+required_directories = [
+  "SETheory",
+  "docs",
+]
+
+
+# ------------------------------------------------------------
 # Constitution
 # ------------------------------------------------------------
 

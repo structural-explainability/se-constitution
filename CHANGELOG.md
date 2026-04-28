@@ -1,11 +1,42 @@
 # Changelog
 
+<!-- markdownlint-disable MD024 -->
+
 All notable changes to this project will be documented in this file.
 
 The format is based on **[Keep a Changelog](https://keepachangelog.com/en/1.1.0/)**
 and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0.0.html)**.
 
 ## [Unreleased]
+
+### Added
+
+New repository class:
+
+- `theory` — Lean 4 theorem-development repositories for Structural Explainability theory
+
+Naming pattern support for `theory`:
+
+- `se-theory-{focus}`
+
+Dependency rules:
+
+- `theory` may depend on `formal_contract`
+- `theory` does not introduce upstream dependencies into the foundation layer
+
+Repository requirements for `theory`:
+
+- Lean 4 project structure (`lean-toolchain`, `lakefile.toml`)
+- Lean module root (e.g., `SETheory`)
+- documentation (`docs/`)
+- no required data export directories
+
+Design clarification:
+
+- separation of concerns between:
+  - theory repos (proof development)
+  - formal contract (stable exported surface)
+  - constitution (operational validation)
 
 ---
 
@@ -22,7 +53,8 @@ Naming pattern support for `govsrc`:
 
 - `se-govsrc-{jurisdiction}`
 - `se-govsrc-{jurisdiction}-{focus}`
-- Clarified that `{jurisdiction}` may include subdivision (e.g., `us-missouri`) and is treated as a single logical token
+- Clarified that `{jurisdiction}` may include
+  subdivision (e.g., `us-missouri`) and is treated as a single logical token
 
 Dependency rules for new classes:
 
