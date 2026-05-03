@@ -1,0 +1,5 @@
+{
+  "schema": "se-relation-registry-1",
+  "contract_version": "0.2.0",
+  "relations": ["equivalent", "narrower", "broader", "overlaps", "none"]
+}

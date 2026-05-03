@@ -1,0 +1,5 @@
+{
+  "schema": "se-invariant-registry-1",
+  "contract_version": "0.2.0",
+  "invariants": ["formal_contract_is_root", "no_cycles", "no_reverse_foundation_dependencies", "constitution_is_foundational"]
+}

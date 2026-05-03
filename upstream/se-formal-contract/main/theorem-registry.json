@@ -1,0 +1,9 @@
+{
+  "schema": "se-theorem-registry-1",
+  "contract_version": "0.2.0",
+  "theorems": [
+    {"id": "ontological_neutrality", "module": "SEFormalContract.Neutrality", "declaration": "ontologicalNeutrality", "kind": "theorem", "depends_on": []},
+    {"id": "regime_necessity", "module": "SEFormalContract.Requirement", "declaration": "regimeNecessity", "kind": "theorem", "depends_on": ["ontological_neutrality"]},
+    {"id": "regime_sufficiency", "module": "SEFormalContract.Requirement", "declaration": "regimeSufficiency", "kind": "theorem", "depends_on": ["ontological_neutrality"]}
+  ]
+}

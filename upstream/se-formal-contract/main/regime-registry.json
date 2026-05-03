@@ -1,0 +1,5 @@
+{
+  "schema": "se-regime-registry-1",
+  "contract_version": "0.2.0",
+  "regimes": ["OBL", "OCC", "REC", "ENR-L", "ENR-I", "CTX-E", "CTX-S", "NOR-C", "NOR-S"]
+}
