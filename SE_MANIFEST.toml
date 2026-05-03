@@ -1,32 +1,58 @@
 # ============================================================
 # SE_MANIFEST.toml (Repository Declaration)
+# se-constitution
 # ============================================================
 
 schema = "se-manifest-2"
+schema_url = "https://github.com/structural-explainability/se-constitution"
 
 # === Identity ===
 
 [meta]
-# WHY: Minimal metadata; versioned separately via Git tags
-name = "se-constitution"
-org = "structural-explainability"
-status = "active"
-version = "0.1.0"
+purpose = "Declares the constitution repository for the Structural Explainability ecosystem."
 
 [repo]
-# WHY: Repo identity is defined structurally
+# WHY: Repo identity is defined structurally.
+name = "se-constitution"
+org = "structural-explainability"
 class = "constitution"
+kind = "foundation"
+status = "active"
+since = "2026"
 summary = "Canonical specification and validation framework for Structural Explainability."
 
-# === Structural contract ===
+[layer]
+space = "operational-foundation"
+role = "constitution"
+
+# === Dependencies ===
 
 [depends]
-# WHY: Constitution is the root; no upstream dependencies
+# Required upstream repository dependencies.
+# WHY: Constitution now consumes the formal contract, not the theory repos.
+required = [
+  "se-formal-contract",
+]
+
+# Optional upstream repository dependencies.
 optional = []
-required = []
+
+# === Formal Contract Declaration ===
+
+[contract]
+# Version of the formal contract this constitution consumes.
+contract_version = "0.2.0"
+
+# This repository consumes, but does not export, the verified contract.
+exports_verified_contract = false
+
+# Upstream formal contract authority.
+consumes_contract_from = "se-formal-contract"
+
+# === Provided artifacts ===
 
 [provides]
-# WHY: Explicit artifact ownership (core to this repository)
+# WHY: Explicit artifact ownership.
 artifacts = [
   "class-registry",
   "dependency-rules",
@@ -36,42 +62,36 @@ artifacts = [
   "validation",
 ]
 
+# === Scope ===
+
 [scope]
-# WHY: Keep this tight and structural
+# WHY: Keep this tight and structural.
 includes = [
   "definition of repository classes",
   "definition of allowed dependency relationships",
   "definition of naming constraints",
   "definition of manifest structure",
   "cross-artifact validation rules",
+  "validation against the consumed formal contract",
 ]
 
 excludes = [
+  "Lean theorem development",
+  "formal proof export generation",
   "domain-specific implementations",
   "runtime systems",
   "data processing logic",
   "epistemic or causal interpretation",
 ]
 
-[validation]
-# WHY: This repo defines validation, not just data
-entrypoint = "se_constitution.app:run_validate"
-
-# === Behavior / governance ===
-
-[naming]
-# WHY: Declares expected repo-family naming convention
-pattern = "se-*"
-
-[governance]
-# WHY: Declares governing authority for this repository
-authority = "structural-explainability"
-
-# === External references ===
+# === Citation ===
 
 [citation]
 cff = "CITATION.cff"
+preferred = "CITATION.cff"
+
+# === Traceability ===
 
 [traceability]
-# WHY: Reserved for future identifier resolution
+# WHY: Reserved for future identifier resolution.
 identifier_map = "none"

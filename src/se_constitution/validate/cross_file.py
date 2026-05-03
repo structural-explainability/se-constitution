@@ -29,11 +29,8 @@ DESIGN RATIONALE:
 """
 
 from se_constitution.types.class_registry import ClassRegistryData
-from se_constitution.types.cross_file import (
-    NamingPatternsData,
-)
 from se_constitution.types.dependency import DependencyRulesData
-from se_constitution.types.manifest_schema import ManifestSchemaData
+from se_constitution.types.naming_patterns import NamingPatternsData
 from se_constitution.types.repo_requirements import RepoRequirementsData
 
 
@@ -59,7 +56,6 @@ def validate_cross_file_consistency(
     class_registry: ClassRegistryData,
     naming_patterns: NamingPatternsData,
     dependency_rules: DependencyRulesData,
-    manifest_schema: ManifestSchemaData,
     repo_requirements: RepoRequirementsData,
 ) -> tuple[list[str], list[str]]:
     """Validate consistency across constitutional files."""
@@ -76,24 +72,18 @@ def validate_cross_file_consistency(
                 f"naming-patterns.toml: pattern '{pattern_name}' references unknown class '{class_name}'."
             )
 
-    for class_name in dependency_rules["dependency"]:
+    for class_name in dependency_rules.get("dependency", {}):
         if class_name not in known_classes:
             errors.append(
                 f"dependency-rules.toml: dependency rules reference unknown class '{class_name}'."
             )
 
-    for class_name, class_def in dependency_rules["dependency"].items():
+    for class_name, class_def in dependency_rules.get("dependency", {}).items():
         for allowed_class in class_def["allowed"]:
             if allowed_class not in known_classes:
                 errors.append(
                     f"dependency-rules.toml: class '{class_name}' allows unknown dependency class '{allowed_class}'."
                 )
-
-    for class_name in manifest_schema.get("class", {}):
-        if class_name not in known_classes:
-            errors.append(
-                f"manifest-schema.toml: class requirements reference unknown class '{class_name}'."
-            )
 
     for class_name in repo_requirements.get("repo", {}):
         if class_name not in known_classes:
@@ -102,8 +92,7 @@ def validate_cross_file_consistency(
             )
 
     named_classes = _classes_used_by_naming_patterns(naming_patterns)
-    dependency_classes = set(dependency_rules["dependency"].keys())
-    manifest_classes = set(manifest_schema.get("class", {}).keys())
+    dependency_classes = set(dependency_rules.get("dependency", {}).keys())
     repo_requirement_classes = set(repo_requirements.get("repo", {}).keys())
 
     for class_name in sorted(known_classes - named_classes):
@@ -114,11 +103,6 @@ def validate_cross_file_consistency(
     for class_name in sorted(known_classes - dependency_classes):
         errors.append(
             f"class-registry.toml: class '{class_name}' has no dependency rule."
-        )
-
-    for class_name in sorted(known_classes - manifest_classes):
-        errors.append(
-            f"class-registry.toml: class '{class_name}' has no manifest-schema entry."
         )
 
     for class_name in sorted(known_classes - repo_requirement_classes):

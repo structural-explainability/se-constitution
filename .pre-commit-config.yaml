@@ -1,8 +1,8 @@
 # ============================================================
-# .pre-commit-config.yaml (Spec Hygiene)
+# .pre-commit-config.yaml (SE Constitution)
 # ============================================================
-# VARIANT: spec-hygiene
-# ROLE: constitutional / specification repository
+# VARIANT: se-constitution
+# Updated: 2026-05-02
 
 # Fast, consistent repository hygiene before commit.
 #
@@ -36,7 +36,6 @@ exclude: |
     build/|
     coverage\.xml|
     dist/|
-    external/se-formal-contract/|
     htmlcov/|
     lake-packages/|
     node_modules/|
@@ -66,9 +65,9 @@ repos:
       # === PRE-COMMIT: CHECK DATA FILE FORMATS ===
 
       - id: check-json
-        name: B1) Validate JSON syntax (except .vscode/ and external/)
-        # WHY: VSCode settings may include comments; external/ contains submodules not owned by this repo.
-        exclude: ^(\.vscode/.*\.json|external/.*\.json)$
+        name: B1) Validate JSON syntax (except .vscode/)
+        # WHY: VSCode settings may include comments
+        exclude: ^(\.vscode/.*\.json)$
 
       - id: check-toml
         name: B2) Validate TOML syntax
@@ -104,6 +103,24 @@ repos:
       - id: ruff-format
         name: D2) Ruff formatter (runs after linter fixes)
         # WHY: Formats whatever structure the linter left behind.
+
+  # === EXECUTE REPO SPECIFIC LOGIC ===
+
+  - repo: local
+    hooks:
+      - id: se-constitution-validate
+        name: E1) SE constitution validation
+        entry: uv run se-constitution validate
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: markdownlint
+        name: E2) Markdown lint
+        language: system
+        entry: npx markdownlint-cli "**/*.md" --fix
+        pass_filenames: false
+        always_run: true
 
 # === GLOBAL SETTINGS ===
 # ALT: Set fail_fast to true to stop at first failure.

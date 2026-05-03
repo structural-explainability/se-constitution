@@ -42,8 +42,8 @@ git push
 
 ```shell
 cd se-constitution
-git submodule update --remote external/se-formal-contract
-git add external/se-formal-contract
+git submodule update --remote upstream/se-formal-contract
+git add upstream/se-formal-contract
 git commit -m "Update formal contract submodule"
 ```
 

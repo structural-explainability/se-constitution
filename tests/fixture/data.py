@@ -10,6 +10,7 @@ def make_valid_data() -> ArtifactCollection:
         "meta": {"version": "0.1.0", "status": "draft"},
         "class": {
             "constitution": {"summary": "Constitution repo.", "stable": True},
+            "formal_contract": {"summary": "Formal contract repo.", "stable": True},
             "kernel": {"summary": "Kernel repo.", "stable": True},
             "schema": {"summary": "Schema repo.", "stable": True},
             "mapspec": {"summary": "Mapspec repo.", "stable": True},
@@ -28,6 +29,10 @@ def make_valid_data() -> ArtifactCollection:
         "meta": {"version": "0.1.0", "status": "draft"},
         "global": {"required_prefix": "se"},
         "pattern": {
+            "formal_contract": {
+                "class": "formal_contract",
+                "format": "se-formal-contract",
+            },
             "constitution": {"class": "constitution", "format": "se-constitution"},
             "kernel": {"class": "kernel", "format": "se-kernel"},
             "schema": {"class": "schema", "format": "se-schema-{focus}"},
@@ -51,8 +56,10 @@ def make_valid_data() -> ArtifactCollection:
 
     dependency_rules: DependencyRulesData = {
         "meta": {"version": "0.1.0", "status": "draft"},
+        "principle": {"formal_contract_is_root": True},
         "dependency": {
-            "constitution": {"allowed": []},
+            "formal_contract": {"allowed": []},
+            "constitution": {"allowed": ["formal_contract"]},
             "kernel": {"allowed": ["constitution"]},
             "schema": {"allowed": ["constitution", "kernel"]},
             "mapspec": {"allowed": ["constitution", "kernel", "schema"]},
@@ -116,6 +123,7 @@ def make_valid_data() -> ArtifactCollection:
             "repo.class": {"type": "string", "required": True},
         },
         "class": {
+            "formal_contract": {"required_repo_name_patterns": ["se-formal-contract"]},
             "constitution": {"required_repo_name_patterns": ["se-constitution"]},
             "kernel": {"required_repo_name_patterns": ["se-kernel"]},
             "schema": {"required_repo_name_patterns": ["se-schema-{focus}"]},
@@ -138,6 +146,7 @@ def make_valid_data() -> ArtifactCollection:
     repo_requirements = {
         "meta": {"version": "0.1.0", "status": "draft"},
         "repo": {
+            "formal_contract": {"summary": "Formal contract requirements."},
             "constitution": {"summary": "Architectural law."},
             "kernel": {"summary": "Kernel requirements."},
             "schema": {"summary": "Schema requirements."},

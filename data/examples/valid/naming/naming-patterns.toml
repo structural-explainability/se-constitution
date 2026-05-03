@@ -17,6 +17,10 @@ lowercase_only = true
 allow_underscore = false
 allow_space = false
 
+[pattern.formal_contract]
+class = "formal_contract"
+format = "se-formal-contract"
+
 [pattern.constitution]
 class = "constitution"
 format = "se-constitution"

@@ -12,19 +12,9 @@
 > Structural Explainability Constitution:
 > rules, schemas, and validation for the SE ecosystem.
 
-## Context
-
-se-constitution
+## Owns
 
 - defines rules
-
-se-kernel
-
-- defines primitives those rules depend on
-
-se-admin
-
-- enforces rules across repositories
 
 ## Command Reference
 
@@ -49,8 +39,6 @@ uv self update
 uv python pin 3.15
 uv sync --extra dev --extra docs --upgrade
 
-git submodule update --init --recursive
-
 uvx pre-commit install
 
 git add -A
@@ -63,9 +51,6 @@ uvx pre-commit run --all-files
 uv run python -m se_constitution validate
 
 # do chores
-npx markdownlint-cli "**/*.md" --fix
-uv run python -m ruff format .
-uv run python -m ruff check . --fix
 uv run python -m pyright
 uv run python -m pytest
 uv run python -m zensical build

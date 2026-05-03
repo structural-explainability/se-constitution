@@ -26,6 +26,9 @@ required = true
 type = "string"
 required = true
 
+[class.formal_contract]
+required_repo_name_patterns = ["se-formal-contract"]
+
 [class.constitution]
 required_repo_name_patterns = ["se-constitution"]
 

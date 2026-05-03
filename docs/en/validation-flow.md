@@ -53,8 +53,8 @@ Generated artifacts must always match Lean output.
 From `se-constitution`:
 
 ```shell
-git submodule update --remote external/se-formal-contract
-git add external/se-formal-contract
+git submodule update --remote upstream/se-formal-contract
+git add upstream/se-formal-contract
 git commit -m "Update formal contract submodule"
 ```
 
@@ -158,7 +158,7 @@ se-constitution references outdated contract
 Fix:
 
 ```shell
-git submodule update --remote external/se-formal-contract
+git submodule update --remote upstream/se-formal-contract
 ```
 
 ### Invariant mismatch

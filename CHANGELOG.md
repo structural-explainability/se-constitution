@@ -9,34 +9,32 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+---
+
+## [0.2.0] - 2026-04-30
+
 ### Added
 
-New repository class:
+- `theory` repository class for Lean 4 theorem-development repositories
+- Naming pattern `se-theory-{focus}` for theory repos
+- Dependency rule: `theory` may depend on `formal_contract`
+- `theorems` field in `[exports]` section of manifest schema
+- `[references]` section in manifest schema for static hand-maintained files
+- `load.py` - manifest loading and version extraction primitives
+- `sync.py` - syncs `CITATION.cff` and `pyproject.toml` from `SE_MANIFEST.toml` version
+- `validate/orchestrate.py` - validation orchestration with auto-sync before checks
+- `--require-tag` flag on `validate` command
+- `--strict` flag treats warnings as errors
 
-- `theory` — Lean 4 theorem-development repositories for Structural Explainability theory
+### Changed
 
-Naming pattern support for `theory`:
+- `validate/__init__.py` re-exports `run_validate` as stable public surface
+- `cli.py` dispatches to `validate` and `sync` subcommands
+- Release procedure updated: `meta.version` in `SE_MANIFEST.toml` is canonical version source
 
-- `se-theory-{focus}`
+### Fixed
 
-Dependency rules:
-
-- `theory` may depend on `formal_contract`
-- `theory` does not introduce upstream dependencies into the foundation layer
-
-Repository requirements for `theory`:
-
-- Lean 4 project structure (`lean-toolchain`, `lakefile.toml`)
-- Lean module root (e.g., `SETheory`)
-- documentation (`docs/`)
-- no required data export directories
-
-Design clarification:
-
-- separation of concerns between:
-  - theory repos (proof development)
-  - formal contract (stable exported surface)
-  - constitution (operational validation)
+- `app.py` reduced to thin shim
 
 ---
 
@@ -128,18 +126,70 @@ Consistency across:
   - **PATCH** – fixes, documentation, tooling
 - Versions are driven by git tags. Tag `vX.Y.Z` to release.
 - Docs are deployed per version tag and aliased to **latest**.
+
+## Release Procedure (Required)
+
+Follow these steps exactly when creating a new release.
+
+### Task 1. Update release metadata (manual edits)
+
+1.1. `SE_MANIFEST.toml`
+
+- Update `[contract].contract_version = "X.Y.Z"`
+
+1.2. `CHANGELOG.md`
+
+- Add `## [X.Y.Z] - YYYY-MM-DD`
+- Move entries from `[Unreleased]`
+- Update comparison links
+
+### Task 2. Sync
+
+```shell
+uv run python -m se_constitution sync
+```
+
+Reads `SE_MANIFEST.toml` version and updates:
+
+- `CITATION.cff` - `version` and `date-released`
+
+### Task 3. Validate
+
+```shell
+uv run python -m se_constitution validate
+uvx pre-commit run --all-files
+uv run python -m ruff format .
+uv run python -m ruff check . --fix
+uv run python -m pyright
+uv run python -m pytest
+uv run python -m zensical build
+```
+
+### Task 4. Commit, tag, push
+
+```shell
+git add .
+git commit -m "Release X.Y.Z"
+git tag vX.Y.Z -m "X.Y.Z"
+git push origin main
+git push origin vX.Y.Z
+```
+
 - Sample commands:
 
 ```shell
 # as needed
-git tag -d v0.1.1
-git push origin :refs/tags/v0.1.1
+git tag -d v0.2.0
+git push origin :refs/tags/v0.2.0
 
 # new tag / release
-git tag v0.1.1 -m "0.1.1"
-git push origin v0.1.1
+git tag v0.2.0 -m "0.2.0"
+git push origin v0.2.0
 ```
 
-[Unreleased]: https://github.com/structural-explainability/se-constitution/compare/v0.1.1...HEAD
+## Links
+
+[Unreleased]: https://github.com/structural-explainability/se-constitution/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/structural-explainability/se-constitution/releases/tag/v0.2.0
 [0.1.1]: https://github.com/structural-explainability/se-constitution/releases/tag/v0.1.1
 [0.1.0]: https://github.com/structural-explainability/se-constitution/releases/tag/v0.1.0

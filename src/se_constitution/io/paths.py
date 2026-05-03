@@ -12,8 +12,8 @@ class DataPaths:
     class_registry: Path
     naming_patterns: Path
     dependency_rules: Path
-    manifest_schema: Path
     repo_requirements: Path
+    upstream_contract: Path
 
     @classmethod
     def from_repo_root(cls, repo_root: Path | None = None) -> "DataPaths":
@@ -26,6 +26,6 @@ class DataPaths:
             class_registry=data_dir / "class" / "class-registry.toml",
             naming_patterns=data_dir / "naming" / "naming-patterns.toml",
             dependency_rules=data_dir / "dependency" / "dependency-rules.toml",
-            manifest_schema=data_dir / "manifest" / "manifest-schema.toml",
             repo_requirements=data_dir / "repo" / "repo-requirements.toml",
+            upstream_contract=root / "upstream" / "se-formal-contract" / "main",
         )

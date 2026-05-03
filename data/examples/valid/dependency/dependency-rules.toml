@@ -14,9 +14,13 @@ title = "SE Constitution Dependency Rules (Minimal Valid Example)"
 no_cycles = true
 no_reverse_foundation_dependencies = true
 constitution_is_foundational = true
+formal_contract_is_root = true
+
+[dependency.formal_contract]
+allowed = []
 
 [dependency.constitution]
-allowed = []
+allowed = ["formal_contract"]
 
 [dependency.kernel]
 allowed = ["constitution"]

@@ -60,7 +60,7 @@ Defines:
 Consumes:
 
 ```text
-external/se-formal-contract/data/contract/*.json
+upstream/se-formal-contract/data/contract/*.json
 ```
 
 Responsibilities:

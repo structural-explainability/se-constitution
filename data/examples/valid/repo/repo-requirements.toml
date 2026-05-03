@@ -12,6 +12,9 @@ title = "SE Repo Requirements Registry (Minimal Valid Example)"
 [global]
 required_root_files = ["README.md", "SE_MANIFEST.toml"]
 
+[repo.formal_contract]
+summary = "Lean 4-verified formal contract root."
+
 [repo.constitution]
 summary = "Architectural law and governing definitions for the SE ecosystem."
 require_ci = true

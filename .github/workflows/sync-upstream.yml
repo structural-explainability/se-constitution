@@ -1,0 +1,66 @@
+# ============================================================
+# .github/workflows/sync-upstream.yml (Sync Upstream Contract)
+# ============================================================
+# Updated: 2026-05-02 se-constitution REPO SPECIFIC Execution
+
+name: Sync Upstream Contract
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'   # weekly, Monday 07:00 UTC (1 hour after se-formal-contract sync)
+  workflow_dispatch:        # manual trigger anytime
+
+env:
+  PYTHONUNBUFFERED: "1"    # WHY: Real-time log output in CI.
+  PYTHONIOENCODING: "utf-8" # WHY: Consistent encoding across platforms.
+  PYTHON_VERSION: "3.15"
+
+jobs:
+  sync:
+    name: Sync upstream contract references and update lockfile
+    runs-on: ubuntu-latest
+    timeout-minutes: 30     # WHY: Fail fast if a step hangs unexpectedly.
+    permissions:
+      contents: write  # WHY: This job needs to commit changes back to the repo if syncing updates files.
+
+    steps:
+      # ============================================================
+      # A) ASSEMBLE: Checkout code and set up environment
+      # ============================================================
+
+      - name: A1) Checkout repository code
+        uses: actions/checkout@v6
+        # WHY: Required so all subsequent steps can access repo files.
+
+      - name: A2) Install uv (with caching)
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          # WHY: Cache the uv tool itself for faster subsequent runs.
+          cache-dependency-glob: "uv.lock"
+          # WHY: Invalidate cache only when locked dependencies change.
+
+      - name: A3) Install Python ${{ env.PYTHON_VERSION }}
+        run: uv python install ${{ env.PYTHON_VERSION }}
+        # WHY: Ensures the pinned Python version is available in CI.
+        # OBS: Does not modify the repo; uv manages the interpreter locally.
+
+      # ============================================================
+      # B) BASIC SYNC: Update reference/upstream/ and reference/upstream.lock
+      # ============================================================
+
+      - name: B1) Sync upstream folders (.sh)
+        run: bash .github/scripts/sync_upstream.sh
+
+      - name: B2) Compute folder hashes and update lockfile (.py)
+        run: uv run python .github/scripts/update_lockfile.py
+
+      - name: B3) Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add upstream/ upstream/upstream.lock
+          git diff --cached --quiet && echo "No changes to sync." || (
+            git commit -m "chore: sync se-formal-contract contract refs [skip ci]"
+            git push
+          )

@@ -13,6 +13,7 @@ title = "SE Constitution Dependency Rules (Invalid Example)"
 no_cycles = true
 no_reverse_foundation_dependencies = true
 constitution_is_foundational = true
+# formal_contract_is_root intentionally omitted
 
 [dependency.constitution]
 allowed = []

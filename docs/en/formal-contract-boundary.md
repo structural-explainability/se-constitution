@@ -43,7 +43,7 @@ se-constitution
 - JSON artifacts under:
 
 ```text
-external/se-formal-contract/data/contract/
+upstream/se-formal-contract/data/contract/
 ```
 
 are generated outputs.
@@ -84,7 +84,7 @@ formal_contract_is_root = true
 These must correspond to invariant identifiers defined in:
 
 ```text
-external/se-formal-contract/data/contract/invariant-registry.json
+upstream/se-formal-contract/data/contract/invariant-registry.json
 ```
 
 Validation fails if:
@@ -97,7 +97,7 @@ Validation fails if:
 `se-formal-contract` is included as a Git submodule:
 
 ```text
-external/se-formal-contract/
+upstream/se-formal-contract/
 ```
 
 All consumers must initialize it:

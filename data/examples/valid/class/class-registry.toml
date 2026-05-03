@@ -9,6 +9,10 @@ version = "0.1.0"
 status = "draft"
 title = "SE Constitution Class Registry (Minimal Valid Example)"
 
+[class.formal_contract]
+summary = "Formal contract repo."
+stable = true
+
 [class.constitution]
 summary = "Architectural law and governing definitions for the SE ecosystem."
 stable = true

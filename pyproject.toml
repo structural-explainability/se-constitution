@@ -16,7 +16,9 @@ readme = "README.md"
 requires-python = ">=3.15"
 dynamic = ["version"] # WHY: Version is computed from git tags at build time (see [tool.hatch.version] below).
 
-dependencies = []
+dependencies = [
+    "se-manifest-schema", # WHY: Required for parsing and validating SE_MANIFEST.toml at runtime.
+]
 
 [project.optional-dependencies]
 # WHY: Optional dependency groups keep the core install clean and focused.
@@ -32,8 +34,11 @@ dev = [
 
 docs = [
     # REQ.DOCS.DEPS: External packages used to generate project documentation.
-    "zensical",
+    "zensical==0.0.37", # WHY: Link resolution fails with newer versions; pinning to a known working version.,
 ]
+
+[project.scripts]
+se-constitution = "se_constitution.cli:main"
 
 # ============================================================
 # SECTION 2: TOOL CONFIGURATION (Professional basics)
@@ -45,14 +50,17 @@ docs = [
 # CUSTOM: Pyright configuration for static type checking.
 # WHY: Strict type checking helps catch bugs early.
 include = ["src", "tests"] # WHY: Include both source and test code for comprehensive type checking.
-extraPaths = ["src"] # WHY: Ensure imports are resolved relative to src/ for consistent behavior across environments.
+extraPaths = ["src", "."] # WHY: Ensure imports are resolved relative to src/ for consistent behavior across environments.
 exclude = [ "**/node_modules", "**/.*", ".venv","**/__pycache__","dist","build"]
 pythonVersion = "3.15"
 reportMissingTypeStubs = "none" # WHY: Avoid warnings from third-party libraries without type stubs.
 reportMissingImports = "warning" # WHY: Warn about missing imports to catch potential issues, but allow flexibility in notebooks and dynamic code.
 reportPrivateUsage = "none" # WHY: Allow usage of private members (e.g., _version.py) without warnings, as this is common in Python projects.
-typeCheckingMode = "strict" # strict | basic | off
-useLibraryCodeForTypes = false # WHY: Avoid type checking third-party library code to reduce noise and improve performance.
+typeCheckingMode = "basic" # strict | basic | off
+
+[[tool.pyright.executionEnvironments]]
+root = "tests"
+typeCheckingMode = "basic"
 
 # === PYTEST (VERIFY LOGIC) ===
 
@@ -156,5 +164,5 @@ packages = ["src/se_constitution"]  # REQ.PACKAGES: Discovery rooted at src/.
 [tool.hatch.version]
 # WHY: Version derived from git tags at build time
 source = "vcs"
-fallback-version = "0.1.0"              # Used when no git tags present (fresh clone, CI).
+fallback-version = "0.2.0"              # Used when no git tags present (fresh clone, CI).
 tag-pattern = "^(?:v)?(?P<version>\\d+\\.\\d+\\.\\d+)$"

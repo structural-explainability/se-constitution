@@ -15,7 +15,16 @@ class DependencyEntry(TypedDict):
     allowed: list[str]
 
 
-class DependencyRulesData(TypedDict):
+class PrincipleSection(TypedDict, total=False):
+    """Principle flags for dependency rules."""
+
+    no_cycles: bool
+    no_reverse_foundation_dependencies: bool
+    constitution_is_foundational: bool
+    formal_contract_is_root: bool
+
+
+class DependencyRulesData(TypedDict, total=False):
     """Dependency rules artifact structure.
 
     Represents the dependency-rules artifact as loaded from TOML.
@@ -24,4 +33,5 @@ class DependencyRulesData(TypedDict):
     """
 
     meta: ArtifactMeta
+    principle: PrincipleSection
     dependency: dict[str, DependencyEntry]

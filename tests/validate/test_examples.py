@@ -41,7 +41,7 @@ def load_toml(path: Path) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# Valid set — one test per individual validator
+# Valid set - one test per individual validator
 # ---------------------------------------------------------------------------
 
 
@@ -114,7 +114,7 @@ class TestValidExamples:
 
 
 # ---------------------------------------------------------------------------
-# Invalid set — example file violations plus targeted uncovered-line tests
+# Invalid set - example file violations plus targeted uncovered-line tests
 # ---------------------------------------------------------------------------
 
 
