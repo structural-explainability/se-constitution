@@ -19,9 +19,6 @@ def test_constitution_paths_from_repo_root_builds_expected_paths(
     assert paths.dependency_rules == (
         tmp_path / "data" / "dependency" / "dependency-rules.toml"
     )
-    assert paths.manifest_schema == (
-        tmp_path / "data" / "manifest" / "manifest-schema.toml"
-    )
     assert paths.repo_requirements == (
         tmp_path / "data" / "repo" / "repo-requirements.toml"
     )

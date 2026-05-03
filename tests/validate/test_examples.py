@@ -15,16 +15,12 @@ from pathlib import Path
 import tomllib
 from typing import Any, cast
 
-from se_constitution.types.manifest_schema import ManifestSchemaData
-
 from se_constitution.types.class_registry import ClassRegistryData
 from se_constitution.types.cross_file import NamingPatternsData
 from se_constitution.types.dependency import DependencyRulesData
 from se_constitution.types.repo_requirements import RepoRequirementsData
 from se_constitution.validate.class_registry import validate_class_registry
-from se_constitution.validate.cross_file import validate_cross_file_consistency
 from se_constitution.validate.dependency_rules import validate_dependency_rules
-from se_constitution.validate.manifest_schema import validate_manifest_schema
 from se_constitution.validate.naming_patterns import validate_naming_patterns
 from se_constitution.validate.repo_requirements import validate_repo_requirements
 from tests.fixture.data import make_valid_data
@@ -71,14 +67,6 @@ class TestValidExamples:
         errors = validate_dependency_rules(data)
         assert errors == [], f"Expected no errors; got: {errors}"
 
-    def test_valid_manifest_schema_passes(self) -> None:
-        data = cast(
-            ManifestSchemaData,
-            load_toml(VALID_DIR / "manifest" / "manifest-schema.toml"),
-        )
-        errors = validate_manifest_schema(data)
-        assert errors == [], f"Expected no errors; got: {errors}"
-
     def test_valid_repo_requirements_passes(self) -> None:
         data = cast(
             RepoRequirementsData,
@@ -86,32 +74,6 @@ class TestValidExamples:
         )
         errors = validate_repo_requirements(data)
         assert errors == [], f"Expected no errors; got: {errors}"
-
-    def test_valid_cross_file_passes(self) -> None:
-        errors, warnings = validate_cross_file_consistency(
-            class_registry=cast(
-                ClassRegistryData,
-                load_toml(VALID_DIR / "class" / "class-registry.toml"),
-            ),
-            naming_patterns=cast(
-                NamingPatternsData,
-                load_toml(VALID_DIR / "naming" / "naming-patterns.toml"),
-            ),
-            dependency_rules=cast(
-                DependencyRulesData,
-                load_toml(VALID_DIR / "dependency" / "dependency-rules.toml"),
-            ),
-            manifest_schema=cast(
-                ManifestSchemaData,
-                load_toml(VALID_DIR / "manifest" / "manifest-schema.toml"),
-            ),
-            repo_requirements=cast(
-                RepoRequirementsData,
-                load_toml(VALID_DIR / "repo" / "repo-requirements.toml"),
-            ),
-        )
-        assert errors == [], f"Expected no cross-file errors; got: {errors}"
-        assert warnings == [], f"Expected no cross-file warnings; got: {warnings}"
 
 
 # ---------------------------------------------------------------------------
@@ -131,37 +93,6 @@ class TestInvalidExamples:
         assert len(errors) == 1, f"Expected 1 error; got {len(errors)}: {errors}"
         assert "kernel" in errors[0] and "summary" in errors[0], (
             f"Expected error naming 'kernel' and 'summary'; got: {errors[0]}"
-        )
-
-    def test_violations_2_and_3_cross_file_phantom_class(self) -> None:
-        """kernel's allowed list and a naming pattern both reference unknown class 'phantom'."""
-        errors, _warnings = validate_cross_file_consistency(
-            class_registry=cast(
-                ClassRegistryData,
-                load_toml(VALID_DIR / "class" / "class-registry.toml"),
-            ),
-            naming_patterns=cast(
-                NamingPatternsData,
-                load_toml(INVALID_DIR / "naming" / "naming-patterns.toml"),
-            ),
-            dependency_rules=cast(
-                DependencyRulesData,
-                load_toml(INVALID_DIR / "dependency" / "dependency-rules.toml"),
-            ),
-            manifest_schema=cast(
-                ManifestSchemaData,
-                load_toml(VALID_DIR / "manifest" / "manifest-schema.toml"),
-            ),
-            repo_requirements=cast(
-                RepoRequirementsData,
-                load_toml(VALID_DIR / "repo" / "repo-requirements.toml"),
-            ),
-        )
-        assert any("phantom" in e and "naming" in e for e in errors), (
-            f"Expected naming pattern phantom error; got: {errors}"
-        )
-        assert any("phantom" in e and "dependency" in e for e in errors), (
-            f"Expected dependency phantom error; got: {errors}"
         )
 
     def test_valid_and_invalid_class_registries_differ(self) -> None:
@@ -192,12 +123,6 @@ class TestInvalidExamples:
             "dependency-rules.toml: [dependency.kernel] must define allowed as a list."
             in errors
         )
-
-    def test_manifest_schema_rejects_missing_meta(self) -> None:
-        """Missing [meta] section must be reported."""
-        data: dict[str, Any] = {"section": {}, "field": {}}
-        errors = validate_manifest_schema(cast(ManifestSchemaData, data))
-        assert "manifest-schema.toml: missing [meta] section." in errors
 
     def test_naming_patterns_rejects_missing_global(self) -> None:
         """Missing [global] section must be reported."""

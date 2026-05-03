@@ -9,13 +9,6 @@ from typing import TypedDict
 from se_constitution.types.primitives import ArtifactMeta
 
 
-class PatternEntry(TypedDict, total=False):
-    """A single naming pattern entry."""
-
-    class_: str  # maps to 'class' key in TOML
-    format: str
-
-
 class GlobalNamingRules(TypedDict, total=False):
     """Global naming constraints applied to all patterns."""
 

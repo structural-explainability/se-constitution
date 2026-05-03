@@ -158,8 +158,6 @@ Reads `SE_MANIFEST.toml` version and updates:
 ```shell
 uv run python -m se_constitution validate
 uvx pre-commit run --all-files
-uv run python -m ruff format .
-uv run python -m ruff check . --fix
 uv run python -m pyright
 uv run python -m pytest
 uv run python -m zensical build

@@ -9,13 +9,17 @@ def validate_formal_contract_root(data: DependencyRulesData) -> list[str]:
     """Validate formal_contract root dependency constraints."""
     errors: list[str] = []
 
-    principles: dict[str, Any] | None = data.get("principle")
-    dependencies: dict[str, Any] | None = data.get("dependency")
+    principles = data.get("principle")
+    dependencies = data.get("dependency")
 
     if principles is None or principles.get("formal_contract_is_root") is not True:
         errors.append(
             "dependency-rules.toml: principle.formal_contract_is_root must be true."
         )
+
+    if dependencies is None:
+        errors.append("dependency-rules.toml: [dependency] section is required.")
+        return errors
 
     formal_contract = dependencies.get("formal_contract")
     if formal_contract is None:
@@ -37,7 +41,10 @@ def validate_dependency_rules(data: DependencyRulesData) -> list[str]:
     """Validate dependency rules structure."""
     errors: list[str] = []
 
-    dependency_section = data["dependency"]
+    dependency_section = data.get("dependency")
+    if dependency_section is None:
+        errors.append("dependency-rules.toml: [dependency] section is required.")
+        return errors
 
     for class_name, class_def in dependency_section.items():
         allowed: Any | None = class_def.get("allowed")

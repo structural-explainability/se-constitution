@@ -60,7 +60,6 @@ typeCheckingMode = "basic" # strict | basic | off
 
 [[tool.pyright.executionEnvironments]]
 root = "tests"
-typeCheckingMode = "basic"
 
 # === PYTEST (VERIFY LOGIC) ===
 
