@@ -2,10 +2,11 @@
 
 from typing import Any, cast
 
+from se_constitution.types.manifest_schema import ManifestSchemaData
+
 from se_constitution.types.class_registry import ClassRegistryData
 from se_constitution.types.cross_file import NamingPatternsData
 from se_constitution.types.dependency import DependencyRulesData
-from se_constitution.types.manifest_schema import ManifestSchemaData
 from se_constitution.types.repo_requirements import RepoRequirementsData
 from se_constitution.validate.cross_file import validate_cross_file_consistency
 from tests.fixture.data import make_valid_data

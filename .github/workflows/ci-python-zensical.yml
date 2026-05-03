@@ -80,6 +80,10 @@ jobs:
           fi
         # WHY: Version output makes CI logs easier to debug when tools change.
 
+      - name: A5b) Show ruff issues
+        run: uv run ruff check . --output-format=github
+        continue-on-error: true
+
       - name: A6) Run pre-commit on all files
         run: uv tool run pre-commit run --all-files
         # WHY: Enforces formatting, linting, and file hygiene in one step.

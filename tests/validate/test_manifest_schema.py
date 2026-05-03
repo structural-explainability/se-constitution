@@ -3,6 +3,7 @@
 from typing import cast
 
 from se_constitution.types.manifest_schema import ManifestSchemaData
+
 from se_constitution.validate.manifest_schema import validate_manifest_schema
 from tests.fixture.data import make_valid_data
 
