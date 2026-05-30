@@ -1,18 +1,20 @@
 # ============================================================
 # SE_MANIFEST.toml (Repository Declaration)
-# se-constitution
 # ============================================================
 
-schema = "se-manifest-2"
-schema_url = "https://github.com/structural-explainability/se-constitution"
+schema = "se-manifest-schema"
+schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
 
-# === Identity ===
+# === Framework Context ===
 
 [meta]
-purpose = "Declares the constitution repository for the Structural Explainability ecosystem."
+framework = "Structural Explainability"
+framework_url = "https://github.com/structural-explainability"
+purpose = "Declares this repository's role in the Structural Explainability ecosystem."
+
+# === Repository Identity ===
 
 [repo]
-# WHY: Repo identity is defined structurally.
 name = "se-constitution"
 org = "structural-explainability"
 class = "constitution"
@@ -21,11 +23,13 @@ status = "active"
 since = "2026"
 summary = "Canonical specification and validation framework for Structural Explainability."
 
+# === Layer Position ===
+
 [layer]
 space = "operational-foundation"
 role = "constitution"
 
-# === Dependencies ===
+# === Dependency Declarations ===
 
 [depends]
 # Required upstream repository dependencies.
@@ -49,7 +53,7 @@ exports_verified_contract = false
 # Upstream formal contract authority.
 consumes_contract_from = "se-formal-contract"
 
-# === Provided artifacts ===
+# === Provided Artifacts ===
 
 [provides]
 # WHY: Explicit artifact ownership.
