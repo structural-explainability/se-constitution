@@ -108,19 +108,28 @@ repos:
 
   - repo: local
     hooks:
+
+      - id: markdownlint
+        name: E1) Markdown lint
+        language: system
+        entry: npx markdownlint-cli2 --fix
+        pass_filenames: false
+        always_run: true
+
+      - id: se-validate-manifest
+        name: E2) Validate manifest against schema
+        language: system
+        entry: uv run se-manifest validate-manifest --strict
+        pass_filenames: false
+        always_run: true
+
       - id: se-constitution-validate
-        name: E1) SE constitution validation
+        name: E3) Validate SE constitution
         entry: uv run se-constitution validate
         language: system
         pass_filenames: false
         always_run: true
 
-      - id: markdownlint
-        name: E2) Markdown lint
-        language: system
-        entry: npx markdownlint-cli "**/*.md" --fix
-        pass_filenames: false
-        always_run: true
 
 # === GLOBAL SETTINGS ===
 # ALT: Set fail_fast to true to stop at first failure.
