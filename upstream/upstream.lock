@@ -1,8 +1,8 @@
 {
   "se-formal-contract": {
     "ref": "main",
-    "commit": "2275fe1e4161024cb6115bedae56ebc4a8571fe7",
+    "commit": "a93c2eea3d3b76f0333bd92e97431490261110c0",
     "folder_hash": "sha256:20174e9d1646cb1b119fcc99fda03a61cf57a858c7d48a69668a264bed08355c",
-    "synced_at": "2026-05-25T11:13:29Z"
+    "synced_at": "2026-06-01T12:41:22Z"
   }
 }
