@@ -47,25 +47,31 @@ se-constitution = "se_constitution.cli:main"
 # === PYRIGHT (TYPE CHECKING HELPS FIND COMMON ERRORS BEFORE THE CODE RUNS) ===
 
 [tool.pyright]
-# CUSTOM: Pyright configuration for static type checking.
-# WHY: Strict type checking helps catch bugs early.
-include = ["src", "tests"] # WHY: Include both source and test code for comprehensive type checking.
-extraPaths = ["src", "."] # WHY: Ensure imports are resolved relative to src/ for consistent behavior across environments.
-exclude = [ "**/node_modules", "**/.*", ".venv","**/__pycache__","dist","build"]
+# CUSTOM: static type checking. 'basic' catches bugs without dep-package noise.
 pythonVersion = "3.15"
-reportMissingTypeStubs = "none" # WHY: Avoid warnings from third-party libraries without type stubs.
-reportMissingImports = "warning" # WHY: Warn about missing imports to catch potential issues, but allow flexibility in notebooks and dynamic code.
-reportPrivateUsage = "none" # WHY: Allow usage of private members (e.g., _version.py) without warnings, as this is common in Python projects.
-typeCheckingMode = "basic" # strict | basic | off
-
-[[tool.pyright.executionEnvironments]]
-root = "tests"
+include = ["src"]    # always src, add "notebooks" to add CLI checks on .ipynb
+extraPaths = ["src"] # resolve `imports` from src/
+exclude = [
+    "**/__pycache__",
+    "**/node_modules",
+    "**/.*",
+    ".venv",
+    "dist",
+    "build"
+]
+reportMissingImports = "error"      # catch missing dependencies and typos in imports
+reportMissingTypeStubs = "warning"  # notice when a dep is untyped
+reportPrivateUsage = "none"         # allow _private access (e.g. _version.py)
+reportUnnecessaryTypeIgnoreComment = "warning"  # flag unnecessary # type: ignore comments to keep code clean and maintainable
+venvPath = "."  # WHERE to look for virtual environments (here: the project root).
+venv = ".venv"  # WHICH venv folder to use inside venvPath (the conventional name).
+typeCheckingMode = "strict" # CUSTOM: off | basic | standard | strict
 
 # === PYTEST (VERIFY LOGIC) ===
 
 [tool.pytest.ini_options]
 # WHY: Consistent test discovery and coverage visibility.
-minversion = "7.0"
+minversion = "9.0"
 testpaths = ["tests"]
 addopts = " --cov=se_constitution --cov-report=term-missing"
 
@@ -85,7 +91,7 @@ exclude = [
 ]
 line-length = 88 # WHY: PEP 8 standard, wrap when possible.
 preview = false # WHY: Stable features only; avoid preview features.
-target-version = "py313" # WHY: 3.14 not available yet; match latest supported Python version.
+target-version = "py313" # WHY: 3.15 not available yet; match latest supported Python version.
 unsafe-fixes = false # WHY: Avoid potentially unsafe automatic fixes.
 
 [tool.ruff.format]

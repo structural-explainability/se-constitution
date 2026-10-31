@@ -104,7 +104,7 @@ repos:
         name: D2) Ruff formatter (runs after linter fixes)
         # WHY: Formats whatever structure the linter left behind.
 
-  # === EXECUTE REPO SPECIFIC LOGIC ===
+  # === EXECUTE: UNIVERSAL SE REPOSITORY CHECKS ===
 
   - repo: local
     hooks:
@@ -117,11 +117,13 @@ repos:
         always_run: true
 
       - id: se-validate-manifest
-        name: E2) Validate manifest against schema
+        name: E2) Validate SE manifest against schema
         language: system
-        entry: uv run se-manifest validate-manifest --strict
+        entry: uvx --python 3.14 --from se-manifest-schema se-manifest validate-manifest --strict
         pass_filenames: false
         always_run: true
+
+      # === EXECUTE: ADDITIONAL REPO SPECIFIC LOGIC ===
 
       - id: se-constitution-validate
         name: E3) Validate SE constitution

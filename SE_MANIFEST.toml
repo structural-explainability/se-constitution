@@ -3,6 +3,7 @@
 # ============================================================
 
 schema = "se-manifest-schema"
+schema_version = "0.5.0"
 schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
 
 # === Framework Context ===
@@ -14,9 +15,9 @@ purpose = "Declares this repository's role in the Structural Explainability ecos
 
 # === Repository Identity ===
 
-[repo]
+[repository]
+organization = "structural-explainability"
 name = "se-constitution"
-org = "structural-explainability"
 class = "constitution"
 kind = "foundation"
 status = "active"
